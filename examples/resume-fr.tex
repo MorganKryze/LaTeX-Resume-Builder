@@ -1,0 +1,100 @@
+%-------------------------
+% Resume-LaTeX template — French dummy
+% Persona: Jane Doe (fictional, all data uses example.com per RFC 2606)
+% License: MIT
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+\usepackage{../style/resume}
+\begin{document}
+
+%---------------HEADING---------------
+\begin{center}
+  \textbf{\Huge Jane Doe} \\ \vspace{1pt}
+  \href{mailto:jane.doe@example.com}{\underline{jane.doe@example.com}} $|$
+  \href{https://linkedin.com/in/jane-doe}{\underline{linkedin.com/in/jane-doe}} $|$
+  \href{https://github.com/janedoe}{\underline{github.com/janedoe}} \\
+  \vspace{6pt}
+  \textbf{\small{Ing\'enieure logiciel sp\'ecialis\'ee en syst\`emes backend et outillage d\'eveloppeur. Disponible \`a partir d'octobre 2026.}}
+\end{center}
+%-------------------------------------
+
+%--------------EXPERIENCE-------------
+\section{Exp\'eriences}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+    {Ing\'enieure Logiciel}{Sept. 2023 -- Aujourd'hui}
+    {Example Corp}{Paris, France}
+    \resumeItemListStart
+      \resumeItem{Responsable d'un service d'ingestion d'\'ev\'enements \`a fort d\'ebit (10k req/s), Python et Go}
+      \resumeItem{R\'eduction de 40\% de la latence p99 par optimisation des requ\^etes et cache cibl\'e}
+      \resumeItem{Migration de la stack d'observabilit\'e vers OpenTelemetry et Grafana}
+      \resumeItem{Mentorat de deux ing\'enieurs juniors : onboarding, revue de code, co-ownership de projets}
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Stage d'ing\'enierie logicielle}{Juin 2022 -- Sept. 2022}
+    {Sample Labs}{Dublin, Irlande}
+    \resumeItemListStart
+      \resumeItem{Prototypage d'un service d'autorisation gRPC, livr\'e avec tests et documentation}
+      \resumeItem{Contribution au portail d\'eveloppeur interne : scaffolding self-service, templates CI}
+      \resumeItem{R\'edaction d'un postmortem d'incident adopt\'e comme r\'ef\'erence par l'organisation ing\'enierie}
+    \resumeItemListEnd
+  \resumeSubHeadingListEnd
+%-------------------------------------------
+
+%------------------PROJECTS-----------------
+\section{Projets}
+  \resumeSubHeadingListStart
+    \resumeProjectHeading
+      {\href{https://github.com/janedoe/dotfiles}{\textbf{dotfiles}} $|$ \emph{Shell, Nix, Neovim, tmux}}{En cours}
+      \resumeItemListStart
+        \resumeItem{Environnement de d\'eveloppement cross-platform (macOS + Linux) initialisable en une commande}
+        \resumeItem{Gestion d\'eclarative des paquets via Nix flakes ; reproductible entre machines}
+        \resumeItem{Configuration Neovim : LSP, tree-sitter, plugins s\'electionn\'es pour les travaux syst\`emes}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\href{https://github.com/janedoe/pkg-sandbox}{\textbf{pkg-sandbox}} $|$ \emph{Python, Docker, CLI}}{2025}
+      \resumeItemListStart
+        \resumeItem{CLI qui cr\'ee des environnements isol\'es pour auditer les paquets Python avant installation}
+        \resumeItem{Capture les appels r\'eseau, \'ecritures fichiers et syscalls durant un essai d'installation}
+        \resumeItem{Publi\'e sur PyPI, plus de 1k t\'el\'echargements mensuels}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\href{https://github.com/janedoe/mini-db}{\textbf{mini-db}} $|$ \emph{Rust, B-trees, WAL}}{2024}
+      \resumeItemListStart
+        \resumeItem{Base cl\'e/valeur \'educative : index B-tree custom, write-ahead log, reprise sur crash}
+        \resumeItem{S\'erie d'articles d\'etaillant chaque sous-syst\`eme, environ 3k lectures}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+%-------------------------------------------
+
+%-----------COMP\'ETENCES TECHNIQUES----------
+\section{Comp\'etences Techniques}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+    \textbf{Langues \& Certifications :}{Anglais (natif), Fran\c{c}ais (B2)} \\
+    \textbf{Programmation :}{Python, Go, TypeScript, Rust, Bash} \\
+    \textbf{Frameworks \& Biblioth\`eques :}{FastAPI, React, Next.js, gRPC, SQLAlchemy} \\
+    \textbf{Ing\'enierie logicielle :}{APIs REST/gRPC, SQL, tests automatis\'es, CI/CD, documentation technique} \\
+    \textbf{Infrastructure \& DevOps :}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform} \\
+    \textbf{Outils :}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
+    }}
+ \end{itemize}
+%-------------------------------------------
+
+%--------------FORMATION--------------
+\section{Formation}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+    {\textbf{Example University of Technology}}{Anytown, USA}
+    {Master en informatique --- parcours syst\`emes}{Sept. 2020 -- Juin 2023}
+  \resumeSubheading
+    {\textbf{International Sample College}}{Dublin, Irlande}
+    {Semestre d'\'echange --- syst\`emes distribu\'es, bases de donn\'ees}{F\'ev. 2022 -- Mai 2022}
+  \resumeSubHeadingListEnd
+%-------------------------------------
+
+\end{document}

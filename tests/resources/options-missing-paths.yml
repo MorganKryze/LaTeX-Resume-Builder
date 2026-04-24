@@ -1,0 +1,6 @@
+languages:
+  - english
+image_source: assets/logo.jpg
+color_panel: [0, 0, 0]
+resume_url: https://example.com/
+# paths section deliberately omitted

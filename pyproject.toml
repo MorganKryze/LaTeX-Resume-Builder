@@ -1,0 +1,34 @@
+[project]
+name = "resume-latex-template"
+version = "1.0.0"
+description = "LaTeX resume template with configurable build pipeline"
+requires-python = ">=3.11"
+dependencies = [
+    "pdf2image>=1.17.0",
+    "pypdf2>=3.0.1",
+    "pyyaml>=6.0.2",
+    "qrcode>=7.4.2",
+    "requests>=2.32.3",
+    "pillow>=10.4.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.6.9",
+    "black>=24.8.0",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP", "B", "C4", "SIM", "RUF"]
+ignore = ["E501"]  # line length handled by black
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101"]  # allow `assert` in tests
+
+[tool.black]
+line-length = 100
+target-version = ["py311"]

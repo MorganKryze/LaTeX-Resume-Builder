@@ -1,0 +1,100 @@
+%-------------------------
+% Resume-LaTeX template — English dummy
+% Persona: Jane Doe (fictional, all data uses example.com per RFC 2606)
+% License: MIT
+%-------------------------
+
+\documentclass[letterpaper,11pt]{article}
+\usepackage{../style/resume}
+\begin{document}
+
+%---------------HEADING---------------
+\begin{center}
+  \textbf{\Huge Jane Doe} \\ \vspace{1pt}
+  \href{mailto:jane.doe@example.com}{\underline{jane.doe@example.com}} $|$
+  \href{https://linkedin.com/in/jane-doe}{\underline{linkedin.com/in/jane-doe}} $|$
+  \href{https://github.com/janedoe}{\underline{github.com/janedoe}} \\
+  \vspace{6pt}
+  \textbf{\small{Software engineer focused on backend systems and developer tooling. Open to new opportunities starting October 2026.}}
+\end{center}
+%-------------------------------------
+
+%--------------EXPERIENCE-------------
+\section{Experience}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+    {Software Engineer}{Sept. 2023 -- Present}
+    {Example Corp}{Paris, France}
+    \resumeItemListStart
+      \resumeItem{Owned a high-throughput event-ingestion service (10k req/s) written in Python and Go}
+      \resumeItem{Drove a 40\% reduction in p99 latency through query optimization and targeted caching}
+      \resumeItem{Led the migration of observability stack from custom dashboards to OpenTelemetry + Grafana}
+      \resumeItem{Mentored two junior engineers through onboarding, code review, and project co-ownership}
+    \resumeItemListEnd
+
+  \resumeSubheading
+    {Software Engineering Intern}{Jun. 2022 -- Sept. 2022}
+    {Sample Labs}{Dublin, Ireland}
+    \resumeItemListStart
+      \resumeItem{Prototyped a gRPC-based authorization service, delivered end-to-end with tests and docs}
+      \resumeItem{Contributed to the internal developer portal: self-serve service scaffolding, CI templates}
+      \resumeItem{Wrote a postmortem on a production incident, adopted as a reference for the engineering org}
+    \resumeItemListEnd
+  \resumeSubHeadingListEnd
+%-------------------------------------------
+
+%------------------PROJECTS-----------------
+\section{Projects}
+  \resumeSubHeadingListStart
+    \resumeProjectHeading
+      {\href{https://github.com/janedoe/dotfiles}{\textbf{dotfiles}} $|$ \emph{Shell, Nix, Neovim, tmux}}{Ongoing}
+      \resumeItemListStart
+        \resumeItem{Cross-platform development environment (macOS + Linux) bootstrapped with a single command}
+        \resumeItem{Declarative package management via Nix flakes; reproducible across machines}
+        \resumeItem{Neovim config with LSP, tree-sitter, and a curated plugin set tuned for systems work}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\href{https://github.com/janedoe/pkg-sandbox}{\textbf{pkg-sandbox}} $|$ \emph{Python, Docker, CLI}}{2025}
+      \resumeItemListStart
+        \resumeItem{CLI that spins up isolated environments to audit unknown Python packages before installing}
+        \resumeItem{Captures network calls, file writes, and syscalls during a trial install for review}
+        \resumeItem{Published on PyPI with 1k+ monthly downloads}
+      \resumeItemListEnd
+
+    \resumeProjectHeading
+      {\href{https://github.com/janedoe/mini-db}{\textbf{mini-db}} $|$ \emph{Rust, B-trees, WAL}}{2024}
+      \resumeItemListStart
+        \resumeItem{Educational key/value store: custom B-tree index, write-ahead log, crash recovery}
+        \resumeItem{Companion blog series explaining each subsystem, ~3k reads}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+%-------------------------------------------
+
+%-----------TECHNICAL SKILLS----------------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+    \textbf{Languages \& Certifications:}{English (native), French (B2)} \\
+    \textbf{Programming:}{Python, Go, TypeScript, Rust, Bash} \\
+    \textbf{Frameworks \& Libraries:}{FastAPI, React, Next.js, gRPC, SQLAlchemy} \\
+    \textbf{Software Engineering:}{REST/gRPC APIs, SQL, automated testing, CI/CD, technical writing} \\
+    \textbf{Infrastructure \& DevOps:}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform} \\
+    \textbf{Tools:}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
+    }}
+ \end{itemize}
+%-------------------------------------------
+
+%--------------EDUCATION--------------
+\section{Education}
+  \resumeSubHeadingListStart
+  \resumeSubheading
+    {\textbf{Example University of Technology}}{Anytown, USA}
+    {MSc Computer Science — Systems track}{Sept. 2020 -- Jun. 2023}
+  \resumeSubheading
+    {\textbf{International Sample College}}{Dublin, Ireland}
+    {Exchange semester — distributed systems, databases}{Feb. 2022 -- May 2022}
+  \resumeSubHeadingListEnd
+%-------------------------------------
+
+\end{document}

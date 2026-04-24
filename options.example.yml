@@ -1,0 +1,28 @@
+# Resume-LaTeX template — example configuration.
+# Copy to options.yml in your consumer (private) repo and adjust paths.
+
+# Languages to compile and merge (order is preserved in the merged PDF).
+languages:
+  - english
+  - french
+
+# Logo embedded at the center of the generated QR code.
+# Can be a relative path (resolved from --project-root) or an http(s) URL.
+image_source: assets/logo.jpg
+
+# RGB color for the QR code eyes.
+color_panel: [233, 167, 135]
+
+# URL encoded into the QR code.
+resume_url: https://janedoe.example.com/resume
+
+# Paths (resolved relative to --project-root passed to the scripts).
+paths:
+  resumes:
+    english: examples/resume-en.tex
+    french:  examples/resume-fr.tex
+  build_dir:  build
+  merged_pdf: build/resume.pdf
+  qr_output:  build/qr-code.png
+  # Optional: if set, convert_and_merge copies the merged PDF here (for gh-pages).
+  docs_pdf:   site/pdf/resume.pdf

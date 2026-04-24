@@ -1,0 +1,16 @@
+languages:
+  - english
+  - french
+
+image_source: assets/logo.jpg
+color_panel: [233, 167, 135]
+
+resume_url: https://example.com/resume
+
+paths:
+  resumes:
+    english: examples/resume-en.tex
+    french: examples/resume-fr.tex
+  build_dir: build
+  merged_pdf: build/resume.pdf
+  qr_output: build/qr-code.png
