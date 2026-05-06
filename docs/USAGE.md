@@ -80,6 +80,35 @@ make clean            # remove build artifacts
 
 Outputs land in `build/` (gitignored). Each language's PDF also gets placed next to its `.tex` source so the merge step can find it.
 
+### Build via Docker (no local TeX Live)
+
+If you don't want a 4 GB local TeX Live install, compile inside the same Docker image CI uses:
+
+```bash
+make build-docker     # latex compile in ghcr.io/xu-cheng/texlive-full
+make all-docker       # build-docker + merge + qr
+```
+
+Requirements: Docker (`docker version` should respond), `uv`, and `poppler` for the merge step. The image is ~5 GB and pulled the first time you run; subsequent builds reuse the cache.
+
+Behind the scenes, `compile_latex.py --docker` runs:
+
+```bash
+docker run --rm --platform linux/amd64 --user <uid>:<gid> -e HOME=/tmp \
+  -v "<project-root>:/work" \
+  -w "/work/<dir-of-tex-file>" \
+  ghcr.io/xu-cheng/texlive-full:latest \
+  latexmk -pdf -interaction=nonstopmode -halt-on-error \
+  -output-directory=/work/<build-dir> <tex-filename>
+```
+
+Notes:
+
+- The container `cd`s into the `.tex` parent directory so relative `\usepackage{../style/resume}` paths resolve the same way they do in CI.
+- `--platform linux/amd64` is always set because the upstream image only ships amd64. On Apple Silicon (M1/M2/M3) Docker Desktop runs it under Rosetta 2; first compile is slow (~minute) but cached afterwards, and output is byte-identical to CI.
+- `--user` keeps generated files owned by your host user (POSIX only; ignored on Windows).
+- On Linux arm64 hosts (Raspberry Pi, arm64 servers) you'll need `qemu-user-static` and `binfmt_misc` registered: `docker run --rm --privileged tonistiigi/binfmt --install all`.
+
 ---
 
 ## 4. Configuration (`options.yml` / `options.example.yml`)
@@ -147,12 +176,15 @@ All scripts accept the same flags. Run them through `uv run` so they use the loc
 
 ```bash
 uv run python scripts/compile_latex.py      --config options.yml --project-root .
+uv run python scripts/compile_latex.py      --config options.yml --project-root . --docker
 uv run python scripts/convert_and_merge.py  --config options.yml --project-root .
 uv run python scripts/generate_qr_code.py   --config options.yml --project-root .
 ```
 
 - `--config` (default `options.yml`): path to the YAML config.
 - `--project-root` (default `.`): root for resolving relative paths from the YAML.
+- `--docker` (compile_latex only): run latexmk inside `ghcr.io/xu-cheng/texlive-full:latest` instead of using a local install.
+- `--docker-image` (compile_latex only): override the Docker image (default `ghcr.io/xu-cheng/texlive-full:latest`).
 
 ---
 
