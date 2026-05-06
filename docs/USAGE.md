@@ -122,6 +122,7 @@ paths:
 
 1. Create `examples/resume-es.tex` (or wherever) using `\usepackage{../style/resume}`.
 2. Add an entry under `paths.resumes`:
+
    ```yaml
    paths:
      resumes:
@@ -129,10 +130,13 @@ paths:
        french: examples/resume-fr.tex
        spanish: examples/resume-es.tex
    ```
+
 3. Add the key to `languages`:
+
    ```yaml
    languages: [english, french, spanish]
    ```
+
 4. No Python code changes needed.
 
 ---

@@ -95,17 +95,17 @@ ROOT     := .
 all: build merge qr
 
 build:
-	$(MAKE) -C $(TEMPLATE) build  CONFIG=../$(CONFIG) PROJECT_ROOT=../$(ROOT)
+  $(MAKE) -C $(TEMPLATE) build  CONFIG=../$(CONFIG) PROJECT_ROOT=../$(ROOT)
 
 merge:
-	$(MAKE) -C $(TEMPLATE) merge  CONFIG=../$(CONFIG) PROJECT_ROOT=../$(ROOT)
+  $(MAKE) -C $(TEMPLATE) merge  CONFIG=../$(CONFIG) PROJECT_ROOT=../$(ROOT)
 
 qr:
-	$(MAKE) -C $(TEMPLATE) qr     CONFIG=../$(CONFIG) PROJECT_ROOT=../$(ROOT)
+  $(MAKE) -C $(TEMPLATE) qr     CONFIG=../$(CONFIG) PROJECT_ROOT=../$(ROOT)
 
 clean:
-	$(MAKE) -C $(TEMPLATE) clean
-	rm -rf build/
+  $(MAKE) -C $(TEMPLATE) clean
+  rm -rf build/
 ```
 
 ## Step 6 — Build
