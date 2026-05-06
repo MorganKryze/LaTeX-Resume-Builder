@@ -336,17 +336,34 @@ jobs:
           submodules: recursive
           fetch-depth: 1
 
+      # Cache outputs keyed off everything that affects the PDF. Pushes that
+      # only touch the workflow's gh-pages HTML/CSS or this repo's docs skip
+      # the compile entirely.
+      - name: Restore build cache
+        id: cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            build/
+            content/resume-en.jpg
+            content/resume-fr.jpg
+          key: ${{ runner.os }}-resume-${{ hashFiles('content/**/*.tex', 'options.yml', 'Makefile', 'template/style/**', 'template/scripts/**', 'template/Makefile', 'template/uv.lock') }}
+
       - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
           enable-cache: true
 
       - name: Install system dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
 
       - name: Sync Python dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: make -C template install
 
       - name: Compile LaTeX
+        if: steps.cache.outputs.cache-hit != 'true'
         uses: xu-cheng/latex-action@e2f99d4b3685b0da93f97e1b86ad8fab81105098 # v3 (3.3.0)
         with:
           # Keep this list in sync with options.yml `languages`.
@@ -356,9 +373,11 @@ jobs:
           work_in_root_file_dir: true
 
       - name: Merge PDFs and generate JPEG cover
+        if: steps.cache.outputs.cache-hit != 'true'
         run: make merge
 
       - name: Generate QR code
+        if: steps.cache.outputs.cache-hit != 'true'
         run: make qr
 
       - name: Upload build artifact

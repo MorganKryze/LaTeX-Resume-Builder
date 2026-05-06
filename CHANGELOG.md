@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+> **Maintenance policy.** This file is touched only at release time. Entries for
+> the next version are derived from `git log <previous-tag>..HEAD`, then curated
+> and grouped under the Keep a Changelog headings (Security, Fixed, Added,
+> Changed, Removed, Deprecated). Do not append entries in feature PRs; the diff
+> and the commit history are the source of truth between releases.
+
 ## [1.1.0] — 2026-05-06
 
 Maintenance release. Fixes a CI breakage on TeX Live 2026, addresses a known-vulnerable transitive dependency, hardens the GitHub Actions supply chain, and reorganizes the documentation around four explicit usage paths (Fork, Submodule, Overleaf, Raw).

@@ -37,14 +37,34 @@ jobs:
     needs: lint-test
     steps:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4.3.1
+
+      # Cache the compiled outputs keyed off everything that affects the PDF:
+      # .tex sources, the YAML config, the style package, the build scripts,
+      # the Makefile, and the pinned Python lockfile. If none of those changed
+      # (e.g. the push only touched docs, the workflow's gh-pages assembly, or
+      # site/index.html) the cache is restored and the LaTeX compile is skipped.
+      - name: Restore build cache
+        id: cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: |
+            build/
+            examples/resume-en.jpg
+            examples/resume-fr.jpg
+          key: ${{ runner.os }}-build-pdf-${{ hashFiles('examples/**/*.tex', 'options.example.yml', 'Makefile', 'style/**', 'scripts/**', 'uv.lock') }}
+
       - uses: astral-sh/setup-uv@d4b2f3b6ecc6e67c4457f6d3e41ec42d3d0fcb86 # v5.4.2
+        if: steps.cache.outputs.cache-hit != 'true'
         with:
           enable-cache: true
       - name: Install system dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: sudo apt-get update && sudo apt-get install -y poppler-utils
       - name: Sync Python dependencies
+        if: steps.cache.outputs.cache-hit != 'true'
         run: uv sync
       - name: Compile LaTeX (EN + FR)
+        if: steps.cache.outputs.cache-hit != 'true'
         uses: xu-cheng/latex-action@e2f99d4b3685b0da93f97e1b86ad8fab81105098 # v3 (3.3.0)
         with:
           root_file: |
@@ -52,8 +72,10 @@ jobs:
             examples/resume-fr.tex
           work_in_root_file_dir: true
       - name: Convert + merge PDFs, generate JPEG cover
+        if: steps.cache.outputs.cache-hit != 'true'
         run: uv run python scripts/convert_and_merge.py --config options.example.yml --project-root .
       - name: Generate QR code
+        if: steps.cache.outputs.cache-hit != 'true'
         run: uv run python scripts/generate_qr_code.py --config options.example.yml --project-root .
       - name: Upload build artifact
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

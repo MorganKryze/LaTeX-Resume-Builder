@@ -46,7 +46,9 @@ If either fails, CI will fail. Run them before pushing.
 - [ ] New or changed YAML keys documented in `docs/USAGE.md`
 - [ ] New behavior covered by a test
 - [ ] No personal content leaked into `examples/`
-- [ ] `CHANGELOG.md` updated under an `[Unreleased]` section
+
+`CHANGELOG.md` is **not** edited in feature PRs. It is updated only when cutting
+a new version (see [Releases](#releases) below).
 
 ## Commit message style
 
@@ -59,6 +61,32 @@ feat(scripts): allow http(s) URL for image_source
 fix(ci): correct poppler install on ubuntu-24.04
 docs: clarify submodule PROJECT_ROOT semantics
 ```
+
+## Releases
+
+`CHANGELOG.md` is regenerated only when cutting a new version. The release
+flow:
+
+1. Decide the version bump (semver: patch / minor / major).
+2. Read the commit history since the last tag:
+   ```bash
+   git log v1.0.0..HEAD --pretty=format:'%h %s'
+   ```
+3. Group those commits under the Keep a Changelog headings (`Security`,
+   `Fixed`, `Added`, `Changed`, `Removed`, `Deprecated`). Conventional Commit
+   prefixes (`feat`, `fix`, `docs`, `chore`, `ci`, `refactor`, `test`) make this
+   straightforward.
+4. Write the entry above the previous version in `CHANGELOG.md`, with the date
+   in `YYYY-MM-DD` and a one-paragraph release summary at the top.
+5. Commit the `CHANGELOG.md` update on its own (`docs: changelog for vX.Y.Z`).
+6. Tag and push:
+   ```bash
+   git tag -a vX.Y.Z -m "vX.Y.Z"
+   git push origin main vX.Y.Z
+   ```
+
+Between releases, `git log` is the source of truth for what changed. Feature
+PRs do not touch `CHANGELOG.md`.
 
 ## Scope of changes
 
