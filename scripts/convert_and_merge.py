@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 from pdf2image import convert_from_path
-from PyPDF2 import PdfMerger
+from pypdf import PdfWriter
 
 # Allow `python scripts/convert_and_merge.py` to work from repo root.
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -44,12 +44,12 @@ def pdf_to_jpg(path_pdf: str, path_jpg: str) -> None:
 
 def merge_pdfs(pdfs: list[str], new_path: str) -> None:
     """Merge a list of PDF files into a single output PDF."""
-    merger = PdfMerger()
+    writer = PdfWriter()
     for pdf in pdfs:
-        merger.append(pdf)
+        writer.append(pdf)
     Path(new_path).parent.mkdir(parents=True, exist_ok=True)
-    merger.write(new_path)
-    merger.close()
+    writer.write(new_path)
+    writer.close()
 
 
 def _resolve(project_root: Path, rel: str) -> Path:
