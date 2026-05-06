@@ -1,6 +1,6 @@
 # Usage Guide
 
-Extended reference for installing, configuring, and building with the LaTeX-Resume-Builder template.
+Reference for installing, configuring, and building with the LaTeX-Resume-Builder template.
 
 ---
 
@@ -9,7 +9,7 @@ Extended reference for installing, configuring, and building with the LaTeX-Resu
 ### macOS
 
 ```bash
-# uv (Python package & project manager — provisions its own Python)
+# uv (Python package & project manager; provisions its own Python)
 brew install uv
 
 # LaTeX (full recommended, ~4 GB; or basic-latex + add packages as needed)
@@ -40,7 +40,7 @@ sudo pacman -S uv texlive-most poppler
 
 ### Windows
 
-Recommended: **WSL2** with Ubuntu, then follow the Linux instructions. Native Windows with MiKTeX also works but is harder to script reliably.
+Use **WSL2** with Ubuntu, then follow the Linux instructions. Native Windows with MiKTeX also works but is harder to script reliably.
 
 ### Verify
 
@@ -51,7 +51,7 @@ pdflatex --version
 pdftoppm -v                  # from poppler
 ```
 
-`uv` will auto-provision a Python 3.11 interpreter the first time you run `uv sync`, so no separate Python install is required.
+`uv` auto-provisions a Python 3.11 interpreter on the first `uv sync`, so a separate Python install isn't required.
 
 ---
 
@@ -63,7 +63,7 @@ uv sync            # creates .venv, resolves pyproject.toml, writes uv.lock
 make install
 ```
 
-This is reproducible: `uv.lock` pins exact versions, so the same packages are installed everywhere.
+`uv.lock` pins exact versions, so the same packages install in every environment.
 
 ---
 
@@ -78,7 +78,7 @@ make test lint        # unit tests + ruff/black
 make clean            # remove build artifacts
 ```
 
-Outputs land in `build/` (gitignored). Each language's PDF is placed next to its `.tex` source as well (so the merge step can find them).
+Outputs land in `build/` (gitignored). Each language's PDF also gets placed next to its `.tex` source so the merge step can find it.
 
 ---
 

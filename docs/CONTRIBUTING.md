@@ -4,7 +4,7 @@ Thanks for considering a contribution. This project favors small, focused PRs th
 
 ## Core principle
 
-**The template must never impose content.** A change that adds a new required section, a new required field in `options.yml`, or a hardcoded string only relevant to one person's CV is out of scope.
+**The template must never impose content.** A change that adds a required section, a required field in `options.yml`, or a hardcoded string only relevant to one person's CV is out of scope.
 
 ## Local setup
 
@@ -19,12 +19,12 @@ make all                 # sanity build of the Jane Doe dummy
 ## LaTeX conventions
 
 - New commands go in `style/resume.sty`. Follow the existing naming (`\resume<Thing>`).
-- Keep the package self-contained: any `\RequirePackage` added must be listed in `style/resume.sty` and documented in `docs/USAGE.md` troubleshooting if it's unusual.
+- Keep the package self-contained: any added `\RequirePackage` must be listed in `style/resume.sty` and documented in `docs/USAGE.md` troubleshooting if it's unusual.
 - No content in the `.sty`. No `\newcommand{\myName}{...}`.
 
 ## Python conventions
 
-- Dependency manager: [`uv`](https://docs.astral.sh/uv/). Runtime deps in `[project.dependencies]` in `pyproject.toml`, dev deps in `[dependency-groups].dev`. The `uv.lock` file is committed — do not remove it.
+- Dependency manager: [`uv`](https://docs.astral.sh/uv/). Runtime deps in `[project.dependencies]` in `pyproject.toml`, dev deps in `[dependency-groups].dev`. The `uv.lock` file is committed; do not remove it.
 - Formatter: `black --line-length 100`. Linter: `ruff` with the rules in `pyproject.toml`.
 - All scripts in `scripts/` are CLIs parameterized by `--config` and `--project-root`. Do not hardcode paths.
 - New CLI → new tests in `tests/tests.py`. Don't add functionality that has no test.
@@ -43,10 +43,10 @@ If either fails, CI will fail. Run them before pushing.
 - [ ] `make lint` passes
 - [ ] `make test` passes
 - [ ] `make all` produces a valid `build/resume.pdf` from the Jane Doe dummy
-- [ ] New/changed YAML keys documented in `docs/USAGE.md`
+- [ ] New or changed YAML keys documented in `docs/USAGE.md`
 - [ ] New behavior covered by a test
 - [ ] No personal content leaked into `examples/`
-- [ ] `CHANGELOG.md` updated under a `[Unreleased]` section
+- [ ] `CHANGELOG.md` updated under an `[Unreleased]` section
 
 ## Commit message style
 
@@ -68,7 +68,7 @@ Welcome:
 - New `--flag` options that stay backward-compatible
 - Docs improvements
 - New languages in `examples/` (stay with the Jane Doe persona)
-- Packaging/CI hardening
+- Packaging or CI hardening
 
 Out of scope:
 

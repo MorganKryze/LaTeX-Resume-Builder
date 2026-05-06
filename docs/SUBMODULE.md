@@ -1,6 +1,6 @@
 # Using LaTeX-Resume-Builder as a git submodule
 
-This pattern keeps your **personal CV content in a private repo** while delegating all **styling, build, and CI machinery** to this public template. You never commit personal data to the public repo, and you never lose access to template improvements.
+This pattern keeps your personal CV content in a private repo and delegates styling, build, and CI to the public template. Personal data stays out of the public repo, and template upgrades land in your private repo on demand.
 
 ## Final layout
 
@@ -17,7 +17,7 @@ my-cv/                               # your PRIVATE repo
 └── pyproject.toml                   # optional, or just rely on template/uv.lock
 ```
 
-## Step 1 — Create the private repo
+## Step 1: create the private repo
 
 ```bash
 mkdir my-cv && cd my-cv
@@ -25,14 +25,14 @@ git init
 git remote add origin git@github.com:yourname/my-cv.git   # private
 ```
 
-## Step 2 — Add this template as a submodule
+## Step 2: add this template as a submodule
 
 ```bash
 git submodule add https://github.com/MorganKryze/LaTeX-Resume-Builder.git template
 git submodule update --init --recursive
 ```
 
-## Step 3 — Create your content
+## Step 3: create your content
 
 Create `content/resume-en.tex`:
 
@@ -59,11 +59,9 @@ Create `content/resume-en.tex`:
 \end{document}
 ```
 
-Create `content/resume-fr.tex` similarly.
+Create `content/resume-fr.tex` the same way. Drop your avatar into `assets/logo.jpg`.
 
-Drop your avatar into `assets/logo.jpg`.
-
-## Step 4 — Create your `options.yml`
+## Step 4: create your `options.yml`
 
 ```yaml
 languages:
@@ -83,7 +81,7 @@ paths:
   qr_output: build/qr-code.png
 ```
 
-## Step 5 — Create your `Makefile`
+## Step 5: create your `Makefile`
 
 ```makefile
 TEMPLATE := template
@@ -108,7 +106,7 @@ clean:
   rm -rf build/
 ```
 
-## Step 6 — Build
+## Step 6: build
 
 ```bash
 make -C template install   # uv sync inside the submodule
@@ -117,7 +115,7 @@ make all                   # compile your own content
 
 Outputs land in `./build/`.
 
-## Step 7 — Updating the template
+## Step 7: updating the template
 
 When the template gets improvements:
 
@@ -127,14 +125,14 @@ git add template && git commit -m "Bump template to <new-sha>"
 git push
 ```
 
-Your personal content is untouched. Only the pinned submodule SHA moves forward.
+Your personal content stays where it is. Only the pinned submodule SHA moves forward.
 
 ## Invariants to respect
 
-- **Never edit files inside `template/`** from your private repo. Contribute upstream instead.
-- **No hardcoded paths in scripts** — always drive them through `options.yml`.
-- **Your `options.yml` must reflect your actual content structure** — no reliance on the template's `examples/` layout.
+- Don't edit files inside `template/` from your private repo. Contribute upstream instead.
+- Don't hardcode paths in scripts. Drive them through `options.yml`.
+- Your `options.yml` must reflect your actual content structure, not the template's `examples/` layout.
 
 ## Private CI (optional)
 
-You can add a `.github/workflows/build.yml` in your private repo that replicates the template CI but targets your content. The template's own CI publishes the dummy; your private CI publishes your real CV (to a private gh-pages or an S3 bucket, for example).
+You can add a `.github/workflows/build.yml` in your private repo that mirrors the template CI against your content. The template's own CI publishes the dummy; your private CI publishes your real CV (to a private gh-pages or an S3 bucket, for example).
