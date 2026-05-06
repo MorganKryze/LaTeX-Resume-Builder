@@ -19,8 +19,9 @@ from scripts.load_yaml import load_options
 def pdf_to_jpg(path_pdf: str, path_jpg: str) -> None:
     """Convert a PDF file to one or more JPEG images.
 
-    Single-page PDFs write to '{path_jpg}.jpg'. Multi-page PDFs write to
-    '{path_jpg}0.jpg', '{path_jpg}1.jpg', ...
+    Page 1 always writes to '{path_jpg}.jpg' so downstream consumers (gh-pages
+    cover, CI artifact upload) can rely on a stable filename. Additional pages
+    write to '{path_jpg}-page2.jpg', '{path_jpg}-page3.jpg', ...
 
     Args:
         path_pdf: Path to the source PDF.
@@ -36,11 +37,9 @@ def pdf_to_jpg(path_pdf: str, path_jpg: str) -> None:
         raise FileNotFoundError(f"The PDF file {path_pdf} does not exist.")
 
     pages = convert_from_path(path_pdf)
-    if len(pages) > 1:
-        for i, page in enumerate(pages):
-            page.save(f"{path_jpg}{i}.jpg", "JPEG")
-    else:
-        pages[0].save(f"{path_jpg}.jpg", "JPEG")
+    pages[0].save(f"{path_jpg}.jpg", "JPEG")
+    for i, page in enumerate(pages[1:], start=2):
+        page.save(f"{path_jpg}-page{i}.jpg", "JPEG")
 
 
 def merge_pdfs(pdfs: list[str], new_path: str) -> None:
