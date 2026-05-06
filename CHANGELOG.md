@@ -5,6 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] — 2026-05-06
+
+Maintenance release. Fixes a CI breakage on TeX Live 2026, addresses a known-vulnerable transitive dependency, hardens the GitHub Actions supply chain, and reorganizes the documentation around four explicit usage paths (Fork, Submodule, Overleaf, Raw).
+
+### Security
+
+- Migrate from `PyPDF2` (unmaintained) to `pypdf >= 5.0.0`. `PyPDF2 >= 2.2.0, <= 3.0.1` is vulnerable to an infinite-loop DoS on crafted PDFs ([GHSA-hbfs-7qfc-x29r](https://github.com/py-pdf/pypdf/security/advisories/GHSA-hbfs-7qfc-x29r)). `scripts/convert_and_merge.py` now uses `pypdf.PdfWriter` (the API replacement for the deprecated `PdfMerger`).
+
+### Fixed
+
+- CI LaTeX compile: set `work_in_root_file_dir: true` on `xu-cheng/latex-action` so `\usepackage{../style/resume}` resolves correctly. Previous setting compiled from the workspace root and failed on TeX Live 2026 with `File '../style/resume.sty' not found`. The downstream "move PDFs" step is no longer needed and was removed.
+- `pdf_to_jpg` now always writes page 1 to `<base>.jpg` regardless of total page count; additional pages go to `<base>-page2.jpg`, `<base>-page3.jpg`, … Previously single-page output was `<base>.jpg` but multi-page output was `<base>0.jpg`, which silently broke the artifact upload (`if-no-files-found: error`) for any resume that grew past one page.
+
+### Added
+
+- `docs/OVERLEAF.md`: end-to-end Overleaf onboarding guide. Documents the `\usepackage{../style/resume}` path gotcha (Overleaf compiles from the project root, so `..` escapes the project) and offers two working layouts (flat single-resume; folders preserved with EN+FR in one project).
+
+### Changed
+
+- README restructured around a four-path decision table: Fork (public CV repo), Submodule (private), Overleaf (browser-only), Raw (just the `.sty`). Each path lists its minimum-viable steps inline and links to the deep-dive doc.
+- All GitHub Actions in `.github/workflows/ci.yml` are now pinned to commit SHAs (with the human-readable tag in a trailing comment) instead of floating major-version tags. Affects: `actions/checkout`, `astral-sh/setup-uv`, `xu-cheng/latex-action`, `actions/upload-artifact`, `actions/download-artifact`, `peaceiris/actions-gh-pages`.
+- Documentation prose cleaned up across `README.md`, `docs/USAGE.md`, `docs/SUBMODULE.md`, `docs/OVERLEAF.md`, `docs/CONTRIBUTING.md`.
+
 ## [1.0.0] — 2026-04-24
 
 Initial release of the LaTeX-Resume-Builder template as a **pure template** with
