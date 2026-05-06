@@ -349,6 +349,7 @@ jobs:
       - name: Compile LaTeX
         uses: xu-cheng/latex-action@e2f99d4b3685b0da93f97e1b86ad8fab81105098 # v3 (3.3.0)
         with:
+          # Keep this list in sync with options.yml `languages`.
           root_file: |
             content/resume-en.tex
             content/resume-fr.tex
@@ -372,7 +373,7 @@ jobs:
 EOF
 ```
 
-Adjust the `root_file:` and `path:` lists to match the languages you actually ship.
+Adjust the `root_file:` and `path:` lists to match the languages you ship. They must match what `options.yml` has under `languages` and `paths.resumes`. A mismatch produces `File 'resume-XX.tex' cannot be found` in CI.
 
 ### How it works
 
