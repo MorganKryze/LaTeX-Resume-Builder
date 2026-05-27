@@ -90,9 +90,12 @@ def compile_one(
             raise ValueError("project_root is required for Docker builds.")
         cmd = build_latexmk_docker_command(tex_file, output_dir, project_root, docker_image)
     else:
+        # Run latexmk with cwd at the .tex file's parent so TeX's file lookup
+        # (e.g. \input{_accent.tex} for the user-configurable accent color)
+        # matches CI's behavior under xu-cheng/latex-action work_in_root_file_dir.
         cmd = build_latexmk_command(tex_file, output_dir)
     print(f"→ {' '.join(cmd)}")
-    subprocess.run(cmd, check=True)
+    subprocess.run(cmd, check=True, cwd=tex_file.parent if not use_docker else None)
     # latexmk writes to output_dir/<stem>.pdf; copy next to source so merge step finds it.
     built = output_dir / f"{tex_file.stem}.pdf"
     target = tex_file.with_suffix(".pdf")

@@ -20,7 +20,7 @@
 \RequirePackage[empty]{fullpage}
 \RequirePackage{titlesec}
 \RequirePackage{marvosym}
-\RequirePackage[usenames,dvipsnames]{xcolor}
+\RequirePackage[dvipsnames]{xcolor}
 \RequirePackage{verbatim}
 \RequirePackage{enumitem}
 \RequirePackage{hyperref}
@@ -38,9 +38,16 @@
 %-----------ACCENT COLOR-------
 % User-configurable accent color for section rules and hyperlinks.
 % Default is black (visually identical to v1.1.x with [hidelinks] hyperref).
-% Override in your content's preamble, e.g.:
+%
+% The accent is sourced from options.yml's `accent_color: [R, G, B]` and
+% piped in by scripts/write_accent.py, which writes a one-line
+% `_accent.tex` next to each declared resume source. resume.sty inputs
+% that file when present; with no such file the default below applies.
+%
+% You can also override directly in your content's preamble, e.g.:
 %   \definecolor{resumeAccent}{HTML}{0F3778}
 \definecolor{resumeAccent}{HTML}{000000}
+\IfFileExists{_accent.tex}{\input{_accent.tex}}{}
 \hypersetup{
   colorlinks=true,
   urlcolor=resumeAccent,

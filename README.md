@@ -95,7 +95,7 @@ LaTeX-Resume-Builder/
 │   ├── compile_latex.py       # latexmk driver
 │   ├── convert_and_merge.py   # PDF→JPG + multi-language merge
 │   └── generate_qr_code.py    # QR code with embedded logo
-├── options.example.yml        # config schema (paths, languages, QR color)
+├── options.example.yml        # config schema (paths, languages, accent color)
 ├── Makefile                   # one-shot entrypoints (make all / test / lint)
 └── .github/workflows/ci.yml   # builds + publishes to gh-pages
 ```

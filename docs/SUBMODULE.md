@@ -121,7 +121,7 @@ languages:
   - french
 
 image_source: assets/logo.jpg
-color_panel: [233, 167, 135]
+accent_color: [15, 55, 120]
 resume_url: https://yourdomain.com/resume
 
 paths:

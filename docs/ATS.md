@@ -56,23 +56,36 @@ column detection.
 
 ## Configuring the accent color
 
-`resume.sty` exposes a single color hook, `resumeAccent`, used for the
-horizontal rule under each `\section` title and for hyperlink color.
-Default: black (visually identical to pre-accent releases).
+The accent color is **a single field** in `options.yml`, shared across the
+resume PDF (section rules + hyperlinks), the QR code, and the gh-pages
+download button.
 
-Override in your content's preamble:
+```yaml
+# options.yml
+accent_color: [15, 55, 120] # RGB triple; navy by default
+```
+
+At build time `scripts/write_accent.py` reads this value and writes a
+one-line `_accent.tex` next to each declared resume source:
 
 ```latex
-\documentclass[letterpaper,11pt]{article}
-\usepackage{../style/resume}
-
-\definecolor{resumeAccent}{HTML}{0F3778}   % deep navy
-% or pick by name:
-%   \colorlet{resumeAccent}{NavyBlue}      % xcolor dvipsnames
-
-\begin{document}
-\dots
+\definecolor{resumeAccent}{RGB}{15,55,120}
 ```
+
+`style/resume.sty` does `\IfFileExists{_accent.tex}{\input{_accent.tex}}{}`
+after defaulting `resumeAccent` to black, so the generated file wins when
+present. Skipping the `accent_color` field falls back to the default black
+(visually identical to pre-accent releases).
+
+The same `accent_color` value is read by `scripts/generate_qr_code.py` for
+the QR eye color and by the CI's gh-pages assembly step for the download
+button (a `--accent-hover` shade is derived by darkening, and a
+contrast-safe text color is picked via relative luminance).
+
+You can still override directly in your content's preamble if you want a
+different accent for the PDF only — `\definecolor{resumeAccent}{HTML}{…}`
+or `\colorlet{resumeAccent}{NavyBlue}` after the `\usepackage` line. The
+content-level override wins because it loads after `_accent.tex`.
 
 Nothing else changes — section text, body, bullets, and bold company names
 stay black. ATS extraction is unaffected by colored rules and links (color

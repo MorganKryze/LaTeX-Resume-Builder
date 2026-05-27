@@ -63,6 +63,9 @@ jobs:
       - name: Sync Python dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: uv sync
+      - name: Write _accent.tex from options.example.yml
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: uv run python scripts/write_accent.py --config options.example.yml --project-root .
       - name: Compile LaTeX (EN + FR)
         if: steps.cache.outputs.cache-hit != 'true'
         uses: xu-cheng/latex-action@e2f99d4b3685b0da93f97e1b86ad8fab81105098 # v3 (3.3.0)
@@ -105,7 +108,18 @@ jobs:
           mkdir -p site/pdf
           cp artifact/build/resume.pdf site/pdf/resume.pdf
           cp artifact/examples/resume-en.jpg site/resume.jpg
-          cat > site/index.html <<'HTML'
+
+          # Derive HTML accent palette from options.example.yml accent_color
+          # (single source of truth shared with the LaTeX + QR pipeline).
+          ACCENT_RGB=$(grep -E '^accent_color:' options.example.yml | sed 's/.*\[//; s/\].*//' | tr -d ' ')
+          IFS=, read -r R G B <<< "$ACCENT_RGB"
+          ACCENT_HEX=$(printf '%02x%02x%02x' "$R" "$G" "$B")
+          ACCENT_HOVER_HEX=$(printf '%02x%02x%02x' $((R*65/100)) $((G*65/100)) $((B*65/100)))
+          LUM=$(( (2126*R + 7152*G + 722*B) / 10000 ))
+          if [ "$LUM" -lt 128 ]; then ON_ACCENT="fff"; else ON_ACCENT="1a1a1a"; fi
+          ACCENT_RGB_CSV="$R, $G, $B"
+
+          cat > site/index.html <<HTML
           <!DOCTYPE html>
           <html lang="en">
             <head>
@@ -117,8 +131,9 @@ jobs:
                   --bg: #fafafa;
                   --fg: #1a1a1a;
                   --muted: #666;
-                  --accent: #e9a787;
-                  --accent-hover: #d68a64;
+                  --accent: #${ACCENT_HEX};
+                  --accent-hover: #${ACCENT_HOVER_HEX};
+                  --on-accent: #${ON_ACCENT};
                 }
                 * { box-sizing: border-box; }
                 body {
@@ -156,19 +171,19 @@ jobs:
                   height: 56px;
                   padding: 0 1rem;
                   background: var(--accent);
-                  color: var(--fg);
+                  color: var(--on-accent);
                   font-size: 1rem;
                   font-weight: 700;
                   text-decoration: none;
                   border-radius: 999px;
-                  box-shadow: 0 6px 20px rgba(0, 0, 0, .15), 0 2px 6px rgba(233, 167, 135, .35);
+                  box-shadow: 0 6px 20px rgba(0, 0, 0, .15), 0 2px 6px rgba(${ACCENT_RGB_CSV}, .35);
                   overflow: hidden;
                   z-index: 10;
                   transition: background .2s ease, box-shadow .2s ease, padding .3s ease, transform .15s ease;
                 }
                 .download:hover {
                   background: var(--accent-hover);
-                  box-shadow: 0 10px 28px rgba(0, 0, 0, .2), 0 4px 10px rgba(233, 167, 135, .45);
+                  box-shadow: 0 10px 28px rgba(0, 0, 0, .2), 0 4px 10px rgba(${ACCENT_RGB_CSV}, .45);
                   padding-left: 1.4rem;
                 }
                 .download:active { transform: scale(.97); }

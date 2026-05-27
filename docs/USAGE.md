@@ -126,8 +126,10 @@ languages:
 # Local path (resolved from --project-root) OR http(s) URL.
 image_source: assets/logo.jpg
 
-# RGB triple for the colored elements of the QR code.
-color_panel: [233, 167, 135]
+# Single source of truth for the accent color across the resume PDF
+# (section rules, hyperlinks), the QR code eyes, and the gh-pages
+# download button. RGB triple.
+accent_color: [15, 55, 120]
 
 # URL encoded into the QR code (what people reach by scanning it).
 resume_url: https://example.com/resume

@@ -105,7 +105,7 @@ def main(argv: list[str] | None = None) -> int:
     cfg = load_options(args.config)
 
     logo_path = prepare_logo(cfg["image_source"], project_root)
-    color_panel = tuple(cfg["color_panel"])
+    accent_color = tuple(cfg["accent_color"])
     resume_url = cfg["resume_url"]
     qr_output = project_root / cfg["paths"]["qr_output"]
     qr_output.parent.mkdir(parents=True, exist_ok=True)
@@ -122,7 +122,7 @@ def main(argv: list[str] | None = None) -> int:
     qr_inner = qr.make_image(
         image_factory=StyledPilImage,
         eye_drawer=RoundedModuleDrawer(radius_ratio=0.9),
-        color_mask=SolidFillColorMask(front_color=color_panel),
+        color_mask=SolidFillColorMask(front_color=accent_color),
     ).get_image()
     qr_outer = qr.make_image(
         image_factory=StyledPilImage,
