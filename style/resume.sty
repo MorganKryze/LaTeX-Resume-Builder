@@ -12,13 +12,18 @@
 
 %------------PACKAGES----------
 \RequirePackage{latexsym}
+% T1 + Latin Modern: same look as default Computer Modern but with proper
+% ToUnicode CMap, so f-ligatures decompose to "ff"/"fi"/"fl" on text
+% extraction. See docs/ATS.md.
+\RequirePackage[T1]{fontenc}
+\RequirePackage{lmodern}
 \RequirePackage[empty]{fullpage}
 \RequirePackage{titlesec}
 \RequirePackage{marvosym}
-\RequirePackage[usenames,dvipsnames]{color}
+\RequirePackage[usenames,dvipsnames]{xcolor}
 \RequirePackage{verbatim}
 \RequirePackage{enumitem}
-\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{hyperref}
 \RequirePackage{bookmark}
 \RequirePackage{fancyhdr}
 \RequirePackage[english]{babel}
@@ -29,6 +34,21 @@
 \input{glyphtounicode}
 \fi
 %------------------------------
+
+%-----------ACCENT COLOR-------
+% User-configurable accent color for section rules and hyperlinks.
+% Default is black (visually identical to v1.1.x with [hidelinks] hyperref).
+% Override in your content's preamble, e.g.:
+%   \definecolor{resumeAccent}{HTML}{0F3778}
+\definecolor{resumeAccent}{HTML}{000000}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=resumeAccent,
+  linkcolor=resumeAccent,
+  citecolor=resumeAccent,
+  pdfborder={0 0 0}
+}
+%-------------------------------
 
 %----------FORMATTING-----------
 \setlength{\footskip}{5pt}
@@ -57,7 +77,7 @@
 % Sections formatting
 \titleformat{\section}{
   \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+}{}{0em}{}[\color{resumeAccent}\titlerule \vspace{-5pt}]
 
 % Ensure generated pdf is machine readable / ATS parsable
 \ifPDFTeX

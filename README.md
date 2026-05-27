@@ -106,13 +106,14 @@ Each script is single-purpose, all paths come from `options.yml`, and the Makefi
 
 ## Documentation
 
-| Doc                                            | When to read                                                                   |
-| ---------------------------------------------- | ------------------------------------------------------------------------------ |
-| [`docs/USAGE.md`](docs/USAGE.md)               | Per-OS install, YAML schema, adding a language, CLI reference, troubleshooting |
-| [`docs/SUBMODULE.md`](docs/SUBMODULE.md)       | Setting up the private-repo + submodule pattern end-to-end                     |
-| [`docs/OVERLEAF.md`](docs/OVERLEAF.md)         | Overleaf upload layouts, the `\usepackage` path gotcha, EN+FR in one project   |
-| [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) | LaTeX style conventions, Python lint rules, PR checklist                       |
-| [`CHANGELOG.md`](CHANGELOG.md)                 | Release notes                                                                  |
+| Doc                                            | When to read                                                                                    |
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| [`docs/USAGE.md`](docs/USAGE.md)               | Per-OS install, YAML schema, adding a language, CLI reference, troubleshooting                  |
+| [`docs/ATS.md`](docs/ATS.md)                   | How ATS parse the compiled PDF, what `resume.sty` gets right, known limitations and workarounds |
+| [`docs/SUBMODULE.md`](docs/SUBMODULE.md)       | Setting up the private-repo + submodule pattern end-to-end                                      |
+| [`docs/OVERLEAF.md`](docs/OVERLEAF.md)         | Overleaf upload layouts, the `\usepackage` path gotcha, EN+FR in one project                    |
+| [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) | LaTeX style conventions, Python lint rules, PR checklist                                        |
+| [`CHANGELOG.md`](CHANGELOG.md)                 | Release notes                                                                                   |
 
 ---
 
