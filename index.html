@@ -9,8 +9,9 @@
         --bg: #fafafa;
         --fg: #1a1a1a;
         --muted: #666;
-        --accent: #e9a787;
-        --accent-hover: #d68a64;
+        --accent: #0f3778;
+        --accent-hover: #09234e;
+        --on-accent: #fff;
       }
       * { box-sizing: border-box; }
       body {
@@ -48,19 +49,19 @@
         height: 56px;
         padding: 0 1rem;
         background: var(--accent);
-        color: var(--fg);
+        color: var(--on-accent);
         font-size: 1rem;
         font-weight: 700;
         text-decoration: none;
         border-radius: 999px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, .15), 0 2px 6px rgba(233, 167, 135, .35);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, .15), 0 2px 6px rgba(15, 55, 120, .35);
         overflow: hidden;
         z-index: 10;
         transition: background .2s ease, box-shadow .2s ease, padding .3s ease, transform .15s ease;
       }
       .download:hover {
         background: var(--accent-hover);
-        box-shadow: 0 10px 28px rgba(0, 0, 0, .2), 0 4px 10px rgba(233, 167, 135, .45);
+        box-shadow: 0 10px 28px rgba(0, 0, 0, .2), 0 4px 10px rgba(15, 55, 120, .45);
         padding-left: 1.4rem;
       }
       .download:active { transform: scale(.97); }
