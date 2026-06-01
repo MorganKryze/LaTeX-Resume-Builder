@@ -82,6 +82,12 @@
 \raggedright
 \setlength{\tabcolsep}{0in}
 
+% Inline emphasis for key numbers/keywords in body text.
+% Source Sans 3 doesn't expose a separate semibold series in TU encoding,
+% so we use \textbf (= the bold weight of Source Sans, which is itself
+% a "thin bold" relative to Latin Modern's heavier bx). Sparing use only.
+\newcommand{\hl}[1]{\textbf{#1}}
+
 % Sections formatting
 % Title + horizontal rule on the SAME line (rule fills to right margin)
 \newcommand{\sectionrule}[1]{#1\hspace{0.5em}{\color{resumeAccent}\hrulefill}}
