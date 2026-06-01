@@ -11,6 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Changed, Removed, Deprecated). Do not append entries in feature PRs; the diff
 > and the commit history are the source of truth between releases.
 
+## [2.0.1] — 2026-06-01
+
+Patch release. Fixes the v2.0.0 CI breakage on `xu-cheng/latex-action`: the workspace inside the Docker container isn't mounted at `/github/workspace` but at the runner's actual workspace path (e.g. `/home/runner/work/<repo>/<repo>`). Hardcoding the absolute path in `TEXINPUTS` broke class lookup. Replaced by a relative path (`../style/:`) that works regardless of the container's mount layout, since `work_in_root_file_dir: true` puts cwd in `examples/` (or `content/` downstream).
+
+### Fixed
+
+- `.github/workflows/ci.yml`: `TEXINPUTS` now uses `../style/:` instead of `/github/workspace/style/:`. Fixes `! LaTeX Error: File 'resume.cls' not found.` on every CI run.
+
 ## [2.0.0] — 2026-06-01
 
 Major refactor: the template ships as a **LaTeX document class** (`.cls`) instead of a style package (`.sty`), and the styling decisions that used to leak into user content files are now encapsulated in dedicated macros. Configuration is centralised in a single hand-editable `config.tex` (regenerated from `options.yml` by the Python pipeline when present, edited directly on Overleaf when not).

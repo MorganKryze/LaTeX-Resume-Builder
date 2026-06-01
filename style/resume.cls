@@ -22,7 +22,7 @@
 %---------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{resume}[2026/06/01 v2.0.0 Resume class]
+\ProvidesClass{resume}[2026/06/01 v2.0.1 Resume class]
 
 %------------ETOOLBOX (needed for toggles/conditionals)-------
 \RequirePackage{etoolbox}
