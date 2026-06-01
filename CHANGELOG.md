@@ -11,6 +11,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Changed, Removed, Deprecated). Do not append entries in feature PRs; the diff
 > and the commit history are the source of truth between releases.
 
+## [2.0.2] — 2026-06-02
+
+Patch release. Richer, prettier Jane Doe dummies to give first-time users a representative starting point. No code changes.
+
+### Changed
+
+- `examples/resume-en.tex` and `examples/resume-fr.tex`: punched-up Jane Doe persona — KPI-loaded bullets with `\hl{}` highlights (10k req/s, 40% latency reduction, 1k+ PyPI downloads, etc.), and a `\resumeEducationNote` demonstrating the capstone macro.
+- Examples now use the `spacious` class option for an aerated layout that fills one page comfortably — also doubles as in-place documentation for the density toggle.
+- Skills section uses the new `skillsTable` environment with 6 categories (Backend, Infrastructure & DevOps, Data & Databases, Observability & SRE, Tools & Practices, Soft Skills) instead of the v1 `itemize`-based block.
+
+### Added
+
+- `examples/config.tex`: ships a bordeaux red (`#722F37`) accent so first impressions of the template aren't black-on-white. Demonstrates the LaTeX-only customisation flow (no Python pipeline needed).
+
 ## [2.0.1] — 2026-06-01
 
 Patch release. Fixes the v2.0.0 CI breakage on `xu-cheng/latex-action`: the workspace inside the Docker container isn't mounted at `/github/workspace` but at the runner's actual workspace path (e.g. `/home/runner/work/<repo>/<repo>`). Hardcoding the absolute path in `TEXINPUTS` broke class lookup. Replaced by a relative path (`../style/:`) that works regardless of the container's mount layout, since `work_in_root_file_dir: true` puts cwd in `examples/` (or `content/` downstream).

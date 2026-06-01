@@ -12,29 +12,28 @@
   {jane.doe@example.com}
   {linkedin.com/in/jane-doe}
   {github.com/janedoe}
-\resumeTagline{Ing\'enieure logiciel sp\'ecialis\'ee en syst\`emes backend et outillage d\'eveloppeur. Disponible \`a partir d'octobre 2026.}
+\resumeTagline{Ing\'enieure backend qui aime livrer des syst\`emes ennuyeux \`a op\'erer. 4 ans entre services Python et internals Go, avec un faible pour l'outillage d\'eveloppeur. Recherche poste senior IC pour Q4 2026.}
 %-------------------------------------
 
 %--------------EXPERIENCE-------------
 \section{Exp\'eriences}
   \resumeSubHeadingListStart
   \resumeSubheading
-    {Ing\'enieure Logiciel}{Sept. 2023 -- Aujourd'hui}
+    {\href{https://example.com}{\textbf{Ing\'enieure Logiciel}}}{Sept. 2023 -- Aujourd'hui (2,5 ans)}
     {Example Corp}{Paris, France}
     \resumeItemListStart
-      \resumeItem{Responsable d'un service d'ingestion d'\'ev\'enements \`a fort d\'ebit (10k req/s), Python et Go}
-      \resumeItem{R\'eduction de 40\% de la latence p99 par optimisation des requ\^etes et cache cibl\'e}
-      \resumeItem{Migration de la stack d'observabilit\'e vers OpenTelemetry et Grafana}
-      \resumeItem{Mentorat de deux ing\'enieurs juniors : onboarding, revue de code, co-ownership de projets}
+      \resumeItem{Responsable d'un service d'ingestion d'\'ev\'enements \`a fort d\'ebit (\hl{10k req/s}, Python + Go) au service de \hl{30+ \'equipes internes}}
+      \resumeItem{R\'eduction de \hl{40\%} de la latence p99 par optimisation des requ\^etes, cache cibl\'e et pooling de connexions}
+      \resumeItem{Migration de la stack d'observabilit\'e vers \hl{OpenTelemetry + Grafana} sur 12 services}
     \resumeItemListEnd
 
   \resumeSubheading
-    {Stage d'ing\'enierie logicielle}{Juin 2022 -- Sept. 2022}
+    {\href{https://example.com}{\textbf{Stage d'ing\'enierie logicielle}}}{Juin 2022 -- Sept. 2022 (4 mois)}
     {Sample Labs}{Dublin, Irlande}
     \resumeItemListStart
-      \resumeItem{Prototypage d'un service d'autorisation gRPC, livr\'e avec tests et documentation}
-      \resumeItem{Contribution au portail d\'eveloppeur interne : scaffolding self-service, templates CI}
-      \resumeItem{R\'edaction d'un postmortem d'incident adopt\'e comme r\'ef\'erence par l'organisation ing\'enierie}
+      \resumeItem{Prototypage d'un service d'autorisation \hl{gRPC}, livr\'e bout-en-bout avec tests, doc, et plan de rollout}
+      \resumeItem{Contribution au portail d\'eveloppeur interne : scaffolding self-service, templates CI, runbooks d'astreinte}
+      \resumeItem{R\'edaction d'un postmortem d'incident adopt\'e comme \hl{template de r\'ef\'erence} par l'organisation}
     \resumeItemListEnd
   \resumeSubHeadingListEnd
 %-------------------------------------------
@@ -43,52 +42,55 @@
 \section{Projets}
   \resumeSubHeadingListStart
     \resumeProjectHeading
-      {\href{https://github.com/janedoe/dotfiles}{\textbf{dotfiles}} $|$ \emph{Shell, Nix, Neovim, tmux}}{En cours}
+      {\href{https://github.com/janedoe/dotfiles}{\textbf{dotfiles - Environnement de dev}} $|$ \emph{Shell, Nix, Neovim, tmux}}{En cours}
       \resumeItemListStart
-        \resumeItem{Environnement de d\'eveloppement cross-platform (macOS + Linux) initialisable en une commande}
-        \resumeItem{Gestion d\'eclarative des paquets via Nix flakes ; reproductible entre machines}
+        \resumeItem{Environnement de d\'eveloppement cross-platform (macOS + Linux) initialisable en \hl{une commande}}
+        \resumeItem{Gestion d\'eclarative des paquets via Nix flakes --- reproductible entre machines et versions}
         \resumeItem{Configuration Neovim : LSP, tree-sitter, plugins s\'electionn\'es pour les travaux syst\`emes}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\href{https://github.com/janedoe/pkg-sandbox}{\textbf{pkg-sandbox}} $|$ \emph{Python, Docker, CLI}}{2025}
+      {\href{https://github.com/janedoe/pkg-sandbox}{\textbf{pkg-sandbox - Auditeur de paquets Python}} $|$ \emph{Python, Docker, CLI}}{2025}
       \resumeItemListStart
-        \resumeItem{CLI qui cr\'ee des environnements isol\'es pour auditer les paquets Python avant installation}
+        \resumeItem{CLI cr\'eant des environnements isol\'es pour auditer les paquets Python avant installation}
         \resumeItem{Capture les appels r\'eseau, \'ecritures fichiers et syscalls durant un essai d'installation}
-        \resumeItem{Publi\'e sur PyPI, plus de 1k t\'el\'echargements mensuels}
+        \resumeItem{Publi\'e sur PyPI, \hl{1k+ t\'el\'echargements mensuels} et \hl{3 contributeurs}}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\href{https://github.com/janedoe/mini-db}{\textbf{mini-db}} $|$ \emph{Rust, B-trees, WAL}}{2024}
+      {\href{https://github.com/janedoe/mini-db}{\textbf{mini-db - Base cl\'e/valeur \'educative}} $|$ \emph{Rust, B-trees, WAL}}{2024}
       \resumeItemListStart
-        \resumeItem{Base cl\'e/valeur \'educative : index B-tree custom, write-ahead log, reprise sur crash}
-        \resumeItem{S\'erie d'articles d\'etaillant chaque sous-syst\`eme, environ 3k lectures}
+        \resumeItem{Index B-tree custom, write-ahead log, reprise sur crash --- \hl{from scratch, z\'ero d\'ependance}}
+        \resumeItem{S\'erie d'articles d\'etaillant chaque sous-syst\`eme (\hl{\textasciitilde 3k lectures})}
+        \resumeItem{Benchmark\'e contre SQLite sur 100MB de charge synth\'etique}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
-%-------------------------------------------
-
-%-----------COMPÉTENCES TECHNIQUES----------
-\section{Comp\'etences Techniques}
-\begin{skillsTable}
-  \skillRow{Langues \& Certifications}{Anglais (natif), Fran\c{c}ais (B2)}
-  \skillRow{Programmation}{Python, Go, TypeScript, Rust, Bash}
-  \skillRow{Frameworks \& Biblioth\`eques}{FastAPI, React, Next.js, gRPC, SQLAlchemy}
-  \skillRow{Ing\'enierie logicielle}{APIs REST/gRPC, SQL, tests automatis\'es, CI/CD, documentation technique}
-  \skillRow{Infrastructure \& DevOps}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform}
-  \skillRow{Outils}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
-\end{skillsTable}
 %-------------------------------------------
 
 %--------------FORMATION--------------
 \section{Formation}
   \resumeSubHeadingListStart
   \resumeSubheading
-    {\textbf{Example University of Technology}}{Anytown, USA}
+    {\href{https://example.edu}{\textbf{Example University of Technology}}}{Anytown, USA}
     {Master en informatique --- parcours syst\`emes}{Sept. 2020 -- Juin 2023}
+  \resumeEducationNote{Base cl\'e/valeur distribu\'ee avec hashing consistant et r\'eplication --- soutenue avec mention.}
   \resumeSubheading
-    {\textbf{International Sample College}}{Dublin, Irlande}
+    {\href{https://example.ie}{\textbf{International Sample College}}}{Dublin, Irlande}
     {Semestre d'\'echange --- syst\`emes distribu\'es, bases de donn\'ees}{F\'ev. 2022 -- Mai 2022}
   \resumeSubHeadingListEnd
 %-------------------------------------
+
+%-----------COMPÉTENCES----------
+\section{Comp\'etences}
+\begin{skillsTable}
+  \skillRow{Backend}{\hl{Python}, Go, Rust, FastAPI, gRPC, SQLAlchemy, patterns async}
+  \skillRow{Infrastructure \& DevOps}{Docker, Kubernetes, Terraform, AWS (EC2, S3, RDS), Linux, CI/CD}
+  \skillRow{Data \& Bases}{PostgreSQL, Redis, SQLite, design de sch\'ema, optimisation de requ\^etes, migrations}
+  \skillRow{Observabilit\'e \& SRE}{OpenTelemetry, Grafana, Prometheus, logging structur\'e, gestion d'incidents}
+  \skillRow{Frontend \& Web}{TypeScript, React, Next.js, APIs REST/gRPC}
+  \skillRow{Outils \& Pratiques}{Git, GitHub, tests automatis\'es, documentation technique, revue de code}
+  \skillRow{Soft Skills}{Agile/Scrum, \hl{Anglais (natif)}, Fran\c{c}ais (B2), mentorat, culture postmortem}
+\end{skillsTable}
+%-------------------------------------------
 
 \end{document}

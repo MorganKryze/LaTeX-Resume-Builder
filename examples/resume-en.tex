@@ -12,29 +12,28 @@
   {jane.doe@example.com}
   {linkedin.com/in/jane-doe}
   {github.com/janedoe}
-\resumeTagline{Software engineer focused on backend systems and developer tooling. Open to new opportunities starting October 2026.}
+\resumeTagline{Backend engineer who likes shipping systems that are boring to operate. 4 years across Python services and Go internals, with a soft spot for developer tooling. Open to senior IC roles starting Q4 2026.}
 %-------------------------------------
 
 %--------------EXPERIENCE-------------
 \section{Experience}
   \resumeSubHeadingListStart
   \resumeSubheading
-    {Software Engineer}{Sept. 2023 -- Present}
+    {\href{https://example.com}{\textbf{Software Engineer}}}{Sept. 2023 -- Present (2.5 years)}
     {Example Corp}{Paris, France}
     \resumeItemListStart
-      \resumeItem{Owned a high-throughput event-ingestion service (10k req/s) written in Python and Go}
-      \resumeItem{Drove a 40\% reduction in p99 latency through query optimization and targeted caching}
-      \resumeItem{Led the migration of observability stack from custom dashboards to OpenTelemetry + Grafana}
-      \resumeItem{Mentored two junior engineers through onboarding, code review, and project co-ownership}
+      \resumeItem{Owned a high-throughput event-ingestion service (\hl{10k req/s}, Python + Go) serving \hl{30+ internal teams}}
+      \resumeItem{Drove a \hl{40\% reduction} in p99 latency through query optimization, targeted caching, and connection pooling}
+      \resumeItem{Led the migration of the observability stack from custom dashboards to \hl{OpenTelemetry + Grafana} across 12 services}
     \resumeItemListEnd
 
   \resumeSubheading
-    {Software Engineering Intern}{Jun. 2022 -- Sept. 2022}
+    {\href{https://example.com}{\textbf{Software Engineering Intern}}}{Jun. 2022 -- Sept. 2022 (4 months)}
     {Sample Labs}{Dublin, Ireland}
     \resumeItemListStart
-      \resumeItem{Prototyped a gRPC-based authorization service, delivered end-to-end with tests and docs}
-      \resumeItem{Contributed to the internal developer portal: self-serve service scaffolding, CI templates}
-      \resumeItem{Wrote a postmortem on a production incident, adopted as a reference for the engineering org}
+      \resumeItem{Prototyped a \hl{gRPC-based} authorization service, delivered end-to-end with tests, docs, and rollout plan}
+      \resumeItem{Contributed to the internal developer portal: self-serve service scaffolding, CI templates, on-call runbooks}
+      \resumeItem{Wrote a postmortem on a production incident, adopted as a \hl{reference template} for the engineering org}
     \resumeItemListEnd
   \resumeSubHeadingListEnd
 %-------------------------------------------
@@ -43,52 +42,55 @@
 \section{Projects}
   \resumeSubHeadingListStart
     \resumeProjectHeading
-      {\href{https://github.com/janedoe/dotfiles}{\textbf{dotfiles}} $|$ \emph{Shell, Nix, Neovim, tmux}}{Ongoing}
+      {\href{https://github.com/janedoe/dotfiles}{\textbf{dotfiles - Dev environment}} $|$ \emph{Shell, Nix, Neovim, tmux}}{Ongoing}
       \resumeItemListStart
-        \resumeItem{Cross-platform development environment (macOS + Linux) bootstrapped with a single command}
-        \resumeItem{Declarative package management via Nix flakes; reproducible across machines}
+        \resumeItem{Cross-platform dev environment (macOS + Linux) bootstrapped with a \hl{single command}}
+        \resumeItem{Declarative package management via Nix flakes --- reproducible across machines and versions}
         \resumeItem{Neovim config with LSP, tree-sitter, and a curated plugin set tuned for systems work}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\href{https://github.com/janedoe/pkg-sandbox}{\textbf{pkg-sandbox}} $|$ \emph{Python, Docker, CLI}}{2025}
+      {\href{https://github.com/janedoe/pkg-sandbox}{\textbf{pkg-sandbox - Python package auditor}} $|$ \emph{Python, Docker, CLI}}{2025}
       \resumeItemListStart
         \resumeItem{CLI that spins up isolated environments to audit unknown Python packages before installing}
-        \resumeItem{Captures network calls, file writes, and syscalls during a trial install for review}
-        \resumeItem{Published on PyPI with 1k+ monthly downloads}
+        \resumeItem{Captures network calls, file writes, and syscalls during a trial install for offline review}
+        \resumeItem{Published on PyPI with \hl{1k+ monthly downloads} and \hl{3 community contributors}}
       \resumeItemListEnd
 
     \resumeProjectHeading
-      {\href{https://github.com/janedoe/mini-db}{\textbf{mini-db}} $|$ \emph{Rust, B-trees, WAL}}{2024}
+      {\href{https://github.com/janedoe/mini-db}{\textbf{mini-db - Educational key/value store}} $|$ \emph{Rust, B-trees, WAL}}{2024}
       \resumeItemListStart
-        \resumeItem{Educational key/value store: custom B-tree index, write-ahead log, crash recovery}
-        \resumeItem{Companion blog series explaining each subsystem, ~3k reads}
+        \resumeItem{Custom B-tree index, write-ahead log, crash recovery --- \hl{from scratch, zero dependencies}}
+        \resumeItem{Companion blog series explaining each subsystem (\hl{\textasciitilde 3k reads})}
+        \resumeItem{Benchmarked against SQLite on a 100MB synthetic workload}
       \resumeItemListEnd
   \resumeSubHeadingListEnd
-%-------------------------------------------
-
-%-----------TECHNICAL SKILLS----------------
-\section{Technical Skills}
-\begin{skillsTable}
-  \skillRow{Languages \& Certifications}{English (native), French (B2)}
-  \skillRow{Programming}{Python, Go, TypeScript, Rust, Bash}
-  \skillRow{Frameworks \& Libraries}{FastAPI, React, Next.js, gRPC, SQLAlchemy}
-  \skillRow{Software Engineering}{REST/gRPC APIs, SQL, automated testing, CI/CD, technical writing}
-  \skillRow{Infrastructure \& DevOps}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform}
-  \skillRow{Tools}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
-\end{skillsTable}
 %-------------------------------------------
 
 %--------------EDUCATION--------------
 \section{Education}
   \resumeSubHeadingListStart
   \resumeSubheading
-    {\textbf{Example University of Technology}}{Anytown, USA}
+    {\href{https://example.edu}{\textbf{Example University of Technology}}}{Anytown, USA}
     {MSc Computer Science --- Systems track}{Sept. 2020 -- Jun. 2023}
+  \resumeEducationNote{Distributed key-value store with consistent hashing and replication ---- defended with honours.}
   \resumeSubheading
-    {\textbf{International Sample College}}{Dublin, Ireland}
+    {\href{https://example.ie}{\textbf{International Sample College}}}{Dublin, Ireland}
     {Exchange semester --- distributed systems, databases}{Feb. 2022 -- May 2022}
   \resumeSubHeadingListEnd
 %-------------------------------------
+
+%-----------SKILLS-----------
+\section{Skills}
+\begin{skillsTable}
+  \skillRow{Backend}{\hl{Python}, Go, Rust, FastAPI, gRPC, SQLAlchemy, async patterns}
+  \skillRow{Infrastructure \& DevOps}{Docker, Kubernetes, Terraform, AWS (EC2, S3, RDS), Linux, CI/CD}
+  \skillRow{Data \& Databases}{PostgreSQL, Redis, SQLite, schema design, query optimization, migrations}
+  \skillRow{Observability \& SRE}{OpenTelemetry, Grafana, Prometheus, structured logging, incident response}
+  \skillRow{Frontend \& Web}{TypeScript, React, Next.js, REST/gRPC APIs}
+  \skillRow{Tools \& Practices}{Git, GitHub, automated testing, technical writing, code review}
+  \skillRow{Soft Skills}{Agile/Scrum, \hl{English (native)}, French (B2), mentoring, postmortem culture}
+\end{skillsTable}
+%-------------------------------------------
 
 \end{document}
