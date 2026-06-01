@@ -17,6 +17,7 @@
 % extraction. See docs/ATS.md.
 \RequirePackage[T1]{fontenc}
 \RequirePackage{lmodern}
+\RequirePackage[default]{sourcesanspro}
 \RequirePackage[empty]{fullpage}
 \RequirePackage{titlesec}
 \RequirePackage{marvosym}
@@ -82,9 +83,11 @@
 \setlength{\tabcolsep}{0in}
 
 % Sections formatting
+% Title + horizontal rule on the SAME line (rule fills to right margin)
+\newcommand{\sectionrule}[1]{#1\hspace{0.5em}{\color{resumeAccent}\hrulefill}}
 \titleformat{\section}{
-  \vspace{-4pt}\scshape\raggedright\large
-}{}{0em}{}[\color{resumeAccent}\titlerule \vspace{-5pt}]
+  \vspace{-4pt}\raggedright\large\bfseries
+}{}{0em}{\sectionrule}[\vspace{-5pt}]
 
 % Ensure generated pdf is machine readable / ATS parsable
 \ifPDFTeX
@@ -118,7 +121,7 @@
     \item
     \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
       \small#1 & #2 \\
-    \end{tabular*}\vspace{-7pt}
+    \end{tabular*}\vspace{-5pt}
 }
 
 \newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
