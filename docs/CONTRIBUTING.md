@@ -18,9 +18,10 @@ make all                 # sanity build of the Jane Doe dummy
 
 ## LaTeX conventions
 
-- New commands go in `style/resume.sty`. Follow the existing naming (`\resume<Thing>`).
-- Keep the package self-contained: any added `\RequirePackage` must be listed in `style/resume.sty` and documented in `docs/USAGE.md` troubleshooting if it's unusual.
-- No content in the `.sty`. No `\newcommand{\myName}{...}`.
+- New commands go in `style/resume.cls`. Follow the existing naming (`\resume<Thing>`, `\skill<Thing>`).
+- Keep the class self-contained: any added `\RequirePackage` must be listed in `style/resume.cls` and documented in `docs/USAGE.md` troubleshooting if it's unusual.
+- No content in the `.cls`. No `\newcommand{\myName}{...}`.
+- New user-facing toggles (density, font, etc.) get a `\set<Thing>` setter callable from `config.tex`. Document it in `docs/USAGE.md` §"Class macros API".
 
 ## Python conventions
 

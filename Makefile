@@ -7,7 +7,7 @@ PROJECT_ROOT ?= .
 BUILD_DIR    ?= build
 UV           ?= uv
 
-.PHONY: all all-docker install accent build build-docker merge qr test lint clean help
+.PHONY: all all-docker install config build build-docker merge qr test lint clean help
 
 all: build merge qr ## Build everything (compile LaTeX, merge, QR)
 
@@ -18,14 +18,14 @@ install: ## Sync Python deps via uv; warn about missing system tools
 	@command -v latexmk  >/dev/null || echo "WARN: latexmk not on PATH (run 'make build-docker' to compile via Docker instead)"
 	@command -v pdftoppm >/dev/null || echo "WARN: pdftoppm not on PATH; install poppler"
 
-accent: ## Write _accent.tex next to each declared resume (from $(CONFIG).accent_color)
-	$(UV) run python scripts/write_accent.py --config $(CONFIG) --project-root $(PROJECT_ROOT)
+config: ## Write config.tex next to each declared resume (from $(CONFIG))
+	$(UV) run python scripts/write_config.py --config $(CONFIG) --project-root $(PROJECT_ROOT)
 
-build: accent ## Compile all LaTeX resumes declared in $(CONFIG) using local latexmk
+build: config ## Compile all LaTeX resumes declared in $(CONFIG) using local latexmk
 	@mkdir -p $(BUILD_DIR)
 	$(UV) run python scripts/compile_latex.py --config $(CONFIG) --project-root $(PROJECT_ROOT)
 
-build-docker: accent ## Compile via xu-cheng/texlive-full Docker image (no local TeX needed)
+build-docker: config ## Compile via xu-cheng/texlive-full Docker image (no local TeX needed)
 	@command -v docker >/dev/null || { echo "docker not on PATH"; exit 1; }
 	@mkdir -p $(BUILD_DIR)
 	$(UV) run python scripts/compile_latex.py --config $(CONFIG) --project-root $(PROJECT_ROOT) --docker

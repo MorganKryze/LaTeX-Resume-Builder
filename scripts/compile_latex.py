@@ -17,6 +17,9 @@ from scripts.load_yaml import load_options
 DEFAULT_DOCKER_IMAGE = "ghcr.io/xu-cheng/texlive-full:latest"
 
 
+CLASS_SUBDIR = "template/style"  # where resume.cls lives, relative to project root
+
+
 def build_latexmk_command(tex_file: Path, output_dir: Path) -> list[str]:
     """Build the latexmk command for a single .tex file."""
     return [
@@ -29,6 +32,18 @@ def build_latexmk_command(tex_file: Path, output_dir: Path) -> list[str]:
     ]
 
 
+def texinputs_for(project_root: Path, existing: str = "") -> str:
+    """Build a TEXINPUTS value that exposes the class to LaTeX.
+
+    Without this, `\\documentclass{resume}` fails because `resume.cls` lives in
+    `template/style/` (the submodule), not next to the user's `.tex` file. We
+    prepend that directory so the class is found regardless of where latexmk
+    is invoked from. Trailing colon preserves the default search paths.
+    """
+    class_dir = (project_root / CLASS_SUBDIR).resolve()
+    return f"{class_dir}{os.pathsep}{existing}"
+
+
 def build_latexmk_docker_command(
     tex_file: Path,
     output_dir: Path,
@@ -38,9 +53,9 @@ def build_latexmk_docker_command(
     """Build a `docker run` invocation that compiles tex_file inside the texlive-full image.
 
     The container mounts project_root at /work, cd's to the .tex file's parent directory
-    inside the container (so relative \\usepackage{../...} paths resolve the same way
-    they do in CI), and writes outputs to the absolute path inside the container that
-    maps to output_dir on the host.
+    inside the container (so relative inputs like config.tex are picked up), and writes
+    outputs to the absolute path inside the container that maps to output_dir on the host.
+    TEXINPUTS is set inside the container so `\\documentclass{resume}` resolves.
 
     On POSIX hosts a `--user` mapping is added so generated files aren't root-owned.
     """
@@ -50,6 +65,7 @@ def build_latexmk_docker_command(
     work_dir = "/work"
     container_cwd = f"{work_dir}/{tex_rel.parent}".rstrip("/")
     container_out = f"{work_dir}/{out_rel}"
+    container_texinputs = f"{work_dir}/{CLASS_SUBDIR}:"
 
     # The default image (xu-cheng/texlive-full) only ships linux/amd64. Forcing the
     # platform makes Apple Silicon and other arm64 hosts emulate it (Rosetta / QEMU)
@@ -60,6 +76,8 @@ def build_latexmk_docker_command(
     cmd += [
         "-e",
         "HOME=/tmp",
+        "-e",
+        f"TEXINPUTS={container_texinputs}",
         "-v",
         f"{project_root}:{work_dir}",
         "-w",
@@ -78,24 +96,30 @@ def build_latexmk_docker_command(
 def compile_one(
     tex_file: Path,
     output_dir: Path,
+    project_root: Path,
     *,
     use_docker: bool = False,
     docker_image: str = DEFAULT_DOCKER_IMAGE,
-    project_root: Path | None = None,
 ) -> None:
     """Compile a single LaTeX file. Raises CalledProcessError on failure."""
     output_dir.mkdir(parents=True, exist_ok=True)
     if use_docker:
-        if project_root is None:
-            raise ValueError("project_root is required for Docker builds.")
         cmd = build_latexmk_docker_command(tex_file, output_dir, project_root, docker_image)
+        env = None
     else:
-        # Run latexmk with cwd at the .tex file's parent so TeX's file lookup
-        # (e.g. \input{_accent.tex} for the user-configurable accent color)
-        # matches CI's behavior under xu-cheng/latex-action work_in_root_file_dir.
+        # Run latexmk with cwd at the .tex file's parent so TeX picks up
+        # `config.tex` and any other co-located inputs. TEXINPUTS exposes the
+        # template class dir so `\documentclass{resume}` resolves.
         cmd = build_latexmk_command(tex_file, output_dir)
+        env = os.environ.copy()
+        env["TEXINPUTS"] = texinputs_for(project_root, env.get("TEXINPUTS", ""))
     print(f"→ {' '.join(cmd)}")
-    subprocess.run(cmd, check=True, cwd=tex_file.parent if not use_docker else None)
+    subprocess.run(
+        cmd,
+        check=True,
+        cwd=tex_file.parent if not use_docker else None,
+        env=env,
+    )
     # latexmk writes to output_dir/<stem>.pdf; copy next to source so merge step finds it.
     built = output_dir / f"{tex_file.stem}.pdf"
     target = tex_file.with_suffix(".pdf")
@@ -131,9 +155,9 @@ def main(argv: list[str] | None = None) -> int:
         compile_one(
             tex,
             build_dir,
+            project_root,
             use_docker=args.docker,
             docker_image=args.docker_image,
-            project_root=project_root if args.docker else None,
         )
 
     print(f"Compiled {len(cfg['languages'])} resume(s) → {build_dir}")

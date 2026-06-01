@@ -63,12 +63,16 @@ jobs:
       - name: Sync Python dependencies
         if: steps.cache.outputs.cache-hit != 'true'
         run: uv sync
-      - name: Write _accent.tex from options.example.yml
+      - name: Write config.tex from options.example.yml
         if: steps.cache.outputs.cache-hit != 'true'
-        run: uv run python scripts/write_accent.py --config options.example.yml --project-root .
+        run: uv run python scripts/write_config.py --config options.example.yml --project-root .
       - name: Compile LaTeX (EN + FR)
         if: steps.cache.outputs.cache-hit != 'true'
         uses: xu-cheng/latex-action@e2f99d4b3685b0da93f97e1b86ad8fab81105098 # v3 (3.3.0)
+        env:
+          # Expose resume.cls (in style/) to LaTeX; work_in_root_file_dir below
+          # cd's into examples/, so the class won't be found on the default path.
+          TEXINPUTS: "/github/workspace/style/:"
         with:
           root_file: |
             examples/resume-en.tex

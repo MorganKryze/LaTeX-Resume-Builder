@@ -4,19 +4,15 @@
 % License: MIT
 %-------------------------
 
-\documentclass[letterpaper,11pt]{article}
-\usepackage{../style/resume}
+\documentclass[fr,11pt]{resume}
 \begin{document}
 
 %---------------HEADING---------------
-\begin{center}
-  \textbf{\Huge Jane Doe} \\ \vspace{1pt}
-  \href{mailto:jane.doe@example.com}{\underline{jane.doe@example.com}} $|$
-  \href{https://linkedin.com/in/jane-doe}{\underline{linkedin.com/in/jane-doe}} $|$
-  \href{https://github.com/janedoe}{\underline{github.com/janedoe}} \\
-  \vspace{6pt}
-  \textbf{\small{Ing\'enieure logiciel sp\'ecialis\'ee en syst\`emes backend et outillage d\'eveloppeur. Disponible \`a partir d'octobre 2026.}}
-\end{center}
+\resumeHeader{Jane Doe}
+  {jane.doe@example.com}
+  {linkedin.com/in/jane-doe}
+  {github.com/janedoe}
+\resumeTagline{Ing\'enieure logiciel sp\'ecialis\'ee en syst\`emes backend et outillage d\'eveloppeur. Disponible \`a partir d'octobre 2026.}
 %-------------------------------------
 
 %--------------EXPERIENCE-------------
@@ -71,18 +67,16 @@
   \resumeSubHeadingListEnd
 %-------------------------------------------
 
-%-----------COMP\'ETENCES TECHNIQUES----------
+%-----------COMPÉTENCES TECHNIQUES----------
 \section{Comp\'etences Techniques}
- \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
-    \textbf{Langues \& Certifications :}{Anglais (natif), Fran\c{c}ais (B2)} \\
-    \textbf{Programmation :}{Python, Go, TypeScript, Rust, Bash} \\
-    \textbf{Frameworks \& Biblioth\`eques :}{FastAPI, React, Next.js, gRPC, SQLAlchemy} \\
-    \textbf{Ing\'enierie logicielle :}{APIs REST/gRPC, SQL, tests automatis\'es, CI/CD, documentation technique} \\
-    \textbf{Infrastructure \& DevOps :}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform} \\
-    \textbf{Outils :}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
-    }}
- \end{itemize}
+\begin{skillsTable}
+  \skillRow{Langues \& Certifications}{Anglais (natif), Fran\c{c}ais (B2)}
+  \skillRow{Programmation}{Python, Go, TypeScript, Rust, Bash}
+  \skillRow{Frameworks \& Biblioth\`eques}{FastAPI, React, Next.js, gRPC, SQLAlchemy}
+  \skillRow{Ing\'enierie logicielle}{APIs REST/gRPC, SQL, tests automatis\'es, CI/CD, documentation technique}
+  \skillRow{Infrastructure \& DevOps}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform}
+  \skillRow{Outils}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
+\end{skillsTable}
 %-------------------------------------------
 
 %--------------FORMATION--------------

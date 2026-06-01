@@ -17,6 +17,20 @@ accent_color: [15, 55, 120]
 # URL encoded into the QR code.
 resume_url: https://janedoe.example.com/resume
 
+# --- Optional class-level customisation (since v2.0) ---
+# Each key is optional; class defaults apply when omitted. When set, they're
+# emitted into config.tex (next to each resume) by scripts/write_config.py.
+#
+# font          : sourcesans | firasans | latinmodern   (default: sourcesans)
+# density       : compact | normal | spacious           (default: normal)
+# base_fontsize : 10 | 11 | 12                          (default: 11)
+# language      : key from `languages` above            (default: languages[0])
+#
+# font: sourcesans
+# density: normal
+# base_fontsize: 11
+# language: english
+
 # Paths (resolved relative to --project-root passed to the scripts).
 paths:
   resumes:

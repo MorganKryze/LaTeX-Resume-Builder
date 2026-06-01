@@ -11,6 +11,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Changed, Removed, Deprecated). Do not append entries in feature PRs; the diff
 > and the commit history are the source of truth between releases.
 
+## [2.0.0] — 2026-06-01
+
+Major refactor: the template ships as a **LaTeX document class** (`.cls`) instead of a style package (`.sty`), and the styling decisions that used to leak into user content files are now encapsulated in dedicated macros. Configuration is centralised in a single hand-editable `config.tex` (regenerated from `options.yml` by the Python pipeline when present, edited directly on Overleaf when not).
+
+### **BREAKING**
+
+- `style/resume.sty` removed. Replaced by `style/resume.cls`. User `.tex` files must use `\documentclass[<opts>]{resume}` instead of `\documentclass{article}` + `\usepackage{../style/resume}`. See [`docs/MIGRATION.md`](docs/MIGRATION.md) for the v1 → v2 diff.
+- `scripts/write_accent.py` renamed to `scripts/write_config.py`. It now generates a full `config.tex` (not just `_accent.tex`) carrying accent colour, spacing density, base font, and language.
+- `_accent.tex` removed. `config.tex` next to each `.tex` source is the new single user-facing LaTeX config file. The script cleans up any leftover `_accent.tex` from v1 automatically.
+- `Makefile` target `accent` renamed to `config`.
+
+### Added
+
+- `style/resume.cls` — LaTeX class with class options (`fr|en`, `compact|normal|spacious`, `10pt|11pt|12pt`), runtime setters (`\setSpacingDensity`, `\setBaseFont`, `\setLanguage`), and density-aware vertical spacing.
+- New public macros: `\resumeHeader`, `\resumeTagline`, `\resumeEducationNote`, `skillsTable` environment + `\skillRow`. These replace the raw `\begin{center}…\end{center}`, raw `\begin{tabular}…\end{tabular}`, and manual `\vspace`+`\small` blocks that were copy-pasted into user `.tex` files in v1.
+- `config.example.tex` — fully commented starter for the user-side overrides.
+- `.latexmkrc` (consumer/template root): prepends `style/` (or `template/style/`) to `TEXINPUTS` so Overleaf-style compilations from the project root find `resume.cls` without manual env tweaks.
+- `docs/MIGRATION.md`: v1 → v2 upgrade guide.
+- New `options.yml` keys (all optional): `font`, `density`, `base_fontsize`, `language`. Validated by `scripts/load_yaml.py`. Missing keys fall through to class defaults.
+
+### Changed
+
+- `scripts/compile_latex.py`: sets `TEXINPUTS` for both local and Docker invocations so `\documentclass{resume}` resolves regardless of cwd.
+- `examples/resume-{en,fr}.tex`: refactored to use the new class and macros. Same rendered PDFs.
+- `docs/USAGE.md`, `docs/OVERLEAF.md`, `docs/ATS.md`: rewritten around the `.cls` + `config.tex` model.
+
+### Removed
+
+- `style/resume.sty`, `scripts/write_accent.py`, all `_accent.tex` references.
+
 ## [1.1.0] — 2026-05-06
 
 Maintenance release. Fixes a CI breakage on TeX Live 2026, addresses a known-vulnerable transitive dependency, hardens the GitHub Actions supply chain, and reorganizes the documentation around four explicit usage paths (Fork, Submodule, Overleaf, Raw).

@@ -72,16 +72,14 @@ Create `my-cv/content/resume-en.tex`:
 ```bash
 # from my-cv/
 cat > content/resume-en.tex <<'EOF'
-\documentclass[letterpaper,11pt]{article}
-\usepackage{../template/style/resume}
+\documentclass[en,11pt]{resume}
 \begin{document}
 
-\begin{center}
-  \textbf{\Huge Your Name} \\ \vspace{1pt}
-  \href{mailto:you@yourdomain.com}{\underline{you@yourdomain.com}} $|$
-  \href{https://linkedin.com/in/you}{\underline{linkedin.com/in/you}} $|$
-  \href{https://github.com/you}{\underline{github.com/you}}
-\end{center}
+\resumeHeader{Your Name}
+  {you@yourdomain.com}
+  {linkedin.com/in/you}
+  {github.com/you}
+\resumeTagline{One-line pitch goes here.}
 
 \section{Experience}
   \resumeSubHeadingListStart
@@ -95,9 +93,9 @@ cat > content/resume-en.tex <<'EOF'
 EOF
 ```
 
-Then open `content/resume-en.tex` in your editor and replace the placeholders. The available LaTeX commands (`\resumeSubheading`, `\resumeItem`, `\resumeSubHeadingListStart`, etc.) are defined in `template/style/resume.sty`.
+Then open `content/resume-en.tex` in your editor and replace the placeholders. The full macro API (`\resumeHeader`, `\resumeTagline`, `\resumeSubheading`, `\resumeItem`, `skillsTable`, `\resumeEducationNote`, …) is documented in [`USAGE.md §4`](USAGE.md#4-configuration-optionsyml--configtex) and implemented in `template/style/resume.cls`.
 
-For a French (or other) version, copy the file and translate:
+For a French (or other) version, copy the file and translate (switch the class option to `[fr,11pt]`):
 
 ```bash
 # from my-cv/
@@ -105,7 +103,24 @@ cp content/resume-en.tex content/resume-fr.tex
 $EDITOR content/resume-fr.tex
 ```
 
-Keep the `\usepackage{../template/style/resume}` line as-is in every language file. The `..` walks one level up out of `content/` and into `template/style/`.
+The class lives in `template/style/resume.cls`. `make build` (which delegates to `scripts/compile_latex.py`) sets `TEXINPUTS` so `\documentclass{resume}` resolves; you don't need to touch any paths in your `.tex` files.
+
+### Editor / IDE setup (recommended)
+
+If you edit and compile from VSCode (LaTeX Workshop), TeXShop, TeXstudio, or any tool that invokes `pdflatex`/`latexmk` from the `.tex` directory rather than via `make`, add two helpers so `\documentclass{resume}` resolves without env-var magic:
+
+```bash
+# from my-cv/
+ln -s ../template/style/resume.cls content/resume.cls
+cat > content/.latexmkrc <<'RC'
+$ENV{'TEXINPUTS'} = '../template/style/' . ($^O eq 'MSWin32' ? ';' : ':') . ($ENV{'TEXINPUTS'} || '');
+RC
+```
+
+- The **symlink** is the silver bullet — any compiler finds `resume.cls` in cwd. Follows the submodule pin automatically (relative path).
+- The **`content/.latexmkrc`** covers latexmk-only tools (and is harmless when the symlink is present).
+
+These files belong in your consumer repo (track them in git). The submodule itself ships them only via the example layout.
 
 ---
 

@@ -1,0 +1,39 @@
+% =============================================================
+% config.tex — optional user configuration for the resume class.
+%
+% Copy this file to `config.tex` (next to your resume .tex source)
+% and uncomment any line you want to override. With no config.tex
+% present, the class defaults apply.
+%
+% Two ways to populate it:
+%   1. Hand-edit (Overleaf, or any LaTeX-only workflow).
+%   2. Let scripts/write_config.py regenerate from options.yml.
+%
+% NOTE for the Python pipeline: if the first line of a generated
+% config.tex starts with `% AUTO-GENERATED`, the script will
+% overwrite it; otherwise it skips, preserving your hand-edits.
+% =============================================================
+
+% --- Accent colour (sections, links, labels, bullets) -----
+% Default: black. Provide an RGB triple (0–255 each) or a hex string.
+% \definecolor{resumeAccent}{RGB}{15,55,120}
+% \definecolor{resumeAccent}{HTML}{0F3778}
+
+% --- Spacing density -------------------------------------
+% Controls how tight the vertical rhythm is between bullets,
+% sub-headings, and lists. Tune to balance content vs. one-page fit.
+% Values: compact | normal | spacious   (default: normal)
+% \setSpacingDensity{normal}
+
+% --- Base body font --------------------------------------
+% Switches the body face. Math stays on Latin Modern in all cases.
+% Values: sourcesans | firasans | latinmodern   (default: sourcesans)
+% \setBaseFont{sourcesans}
+
+% --- Language --------------------------------------------
+% Affects babel hyphenation and localised labels (e.g.,
+% \resumeEducationNote prints "Projet fin de cursus :" in fr,
+% "Capstone project:" in en).
+% Values: fr | en   (default: en)
+% Also settable via class option: \documentclass[fr]{resume}
+% \setLanguage{fr}

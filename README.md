@@ -1,6 +1,6 @@
 # LaTeX-Resume-Builder
 
-> A minimal, ATS-friendly LaTeX resume template. One LaTeX style, one Python build pipeline, one GitHub Action that publishes a live preview to GitHub Pages.
+> A minimal, ATS-friendly LaTeX resume template. One LaTeX class, one Python build pipeline, one GitHub Action that publishes a live preview to GitHub Pages.
 
 ![Resume cover](https://morgankryze.github.io/LaTeX-Resume-Builder/resume.jpg)
 
@@ -15,9 +15,11 @@ Four ways to use this template. Pick what fits and jump to that section.
 | 🍴 A **public** CV repo you control end-to-end                      | [**Fork**](#1-fork-public-cv-repo)            | ~3 steps |
 | 🔒 Your CV **private** while still tracking template upgrades       | [**Submodule**](#2-submodule-private-cv-repo) | ~5 steps |
 | ☁️ Write in **Overleaf**, no local toolchain                        | [**Overleaf**](#3-overleaf-browser-only)      | ~4 steps |
-| 📄 Just the `.sty` and a `.tex` starter to drop into your own setup | [**Raw**](#4-raw-just-the-files)              | ~2 steps |
+| 📄 Just the `.cls` and a `.tex` starter to drop into your own setup | [**Raw**](#4-raw-just-the-files)              | ~2 steps |
 
 If you can't decide, pick **Fork**. You can migrate to Submodule later without losing work.
+
+> **v2.0 note.** The template now ships as a LaTeX document class (`resume.cls`), not a style package. v1 users: see [`docs/MIGRATION.md`](docs/MIGRATION.md).
 
 ---
 
@@ -43,7 +45,7 @@ You'll need [uv](https://docs.astral.sh/uv/), TeX Live (`latexmk`, `pdflatex`), 
 
 ## 2. Submodule: private CV repo
 
-Best when your CV must stay private but you want template improvements (style fixes, CI updates) for free.
+Best when your CV must stay private but you want template improvements (class fixes, CI updates) for free.
 
 ```bash
 mkdir my-cv && cd my-cv
@@ -51,7 +53,7 @@ git init
 git submodule add https://github.com/MorganKryze/LaTeX-Resume-Builder.git template
 ```
 
-Create `content/resume-en.tex` (your private content) with `\usepackage{../template/style/resume}`, plus an `options.yml` pointing at `content/`. A 4-line wrapper `Makefile` delegates everything to the submodule:
+Create `content/resume-en.tex` (your private content) starting with `\documentclass[en,11pt]{resume}`, plus an `options.yml` pointing at `content/`. A 4-line wrapper `Makefile` delegates everything to the submodule:
 
 ```makefile
 all: ; $(MAKE) -C template all CONFIG=../options.yml PROJECT_ROOT=..
@@ -63,23 +65,23 @@ Personal data stays in your private repo. Pulling template upgrades is `cd templ
 
 ## 3. Overleaf: browser-only
 
-Best when you don't want to install LaTeX locally and don't need the Python pipeline (PDF merge, QR code, gh-pages). You get the style and the resume.
+Best when you don't want to install LaTeX locally and don't need the Python pipeline (PDF merge, QR code, gh-pages). You get the class and the resume.
 
 1. **New Project → Blank Project** in Overleaf.
-2. Upload `style/resume.sty` to the project root.
+2. Upload `style/resume.cls` to the project root.
 3. Upload `examples/resume-en.tex` (or `-fr.tex`) and rename it to `main.tex`.
-4. Open `main.tex`, change line 8 from `\usepackage{../style/resume}` to `\usepackage{resume}`. Recompile.
+4. (Optional) Upload `config.example.tex` and rename it `config.tex` to override the accent colour, density, font, or language. Recompile.
 
-Full reasoning, the alternate folder layout, and how to compile both EN+FR in one project: [`docs/OVERLEAF.md`](docs/OVERLEAF.md).
+Full reasoning, the alternate folder layout (with `.latexmkrc`), and how to compile both EN+FR in one project: [`docs/OVERLEAF.md`](docs/OVERLEAF.md).
 
 ---
 
 ## 4. Raw: just the files
 
-Best when you want the LaTeX style only and will compile in your own editor (TeXShop, VSCode + LaTeX Workshop, TeXstudio, command-line `pdflatex`).
+Best when you want the LaTeX class only and will compile in your own editor (TeXShop, VSCode + LaTeX Workshop, TeXstudio, command-line `pdflatex`).
 
-1. Download `style/resume.sty` and one of `examples/resume-{en,fr}.tex`.
-2. Place both in the same directory, change `\usepackage{../style/resume}` → `\usepackage{resume}`, compile.
+1. Download `style/resume.cls` and one of `examples/resume-{en,fr}.tex`.
+2. Place both in the same directory, compile.
 
 You give up the multi-language PDF merge, the QR code, and the auto-published preview. The resume itself compiles fine.
 
@@ -89,13 +91,15 @@ You give up the multi-language PDF merge, the QR code, and the auto-published pr
 
 ```plain
 LaTeX-Resume-Builder/
-├── style/resume.sty           # the LaTeX package: packages, margins, commands
+├── style/resume.cls           # the LaTeX class: packages, margins, macros
+├── config.example.tex         # starter for user-side overrides (accent, density, font, language)
 ├── examples/                  # dummy "Jane Doe" resumes in EN + FR
-├── scripts/                   # Python utilities (compile, merge, QR)
-│   ├── compile_latex.py       # latexmk driver
+├── scripts/                   # Python utilities (compile, config, merge, QR)
+│   ├── compile_latex.py       # latexmk driver (sets TEXINPUTS to find the class)
+│   ├── write_config.py        # options.yml → config.tex
 │   ├── convert_and_merge.py   # PDF→JPG + multi-language merge
 │   └── generate_qr_code.py    # QR code with embedded logo
-├── options.example.yml        # config schema (paths, languages, accent color)
+├── options.example.yml        # config schema (paths, languages, accent, font, density, …)
 ├── Makefile                   # one-shot entrypoints (make all / test / lint)
 └── .github/workflows/ci.yml   # builds + publishes to gh-pages
 ```
@@ -108,11 +112,12 @@ Each script is single-purpose, all paths come from `options.yml`, and the Makefi
 
 | Doc                                            | When to read                                                                                    |
 | ---------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| [`docs/USAGE.md`](docs/USAGE.md)               | Per-OS install, YAML schema, adding a language, CLI reference, troubleshooting                  |
-| [`docs/ATS.md`](docs/ATS.md)                   | How ATS parse the compiled PDF, what `resume.sty` gets right, known limitations and workarounds |
+| [`docs/USAGE.md`](docs/USAGE.md)               | Per-OS install, YAML schema, `config.tex` schema, class macros API, CLI reference, troubleshooting |
+| [`docs/MIGRATION.md`](docs/MIGRATION.md)       | v1 → v2 upgrade guide (style package to class)                                                  |
+| [`docs/ATS.md`](docs/ATS.md)                   | How ATS parse the compiled PDF, what `resume.cls` gets right, known limitations and workarounds |
 | [`docs/SUBMODULE.md`](docs/SUBMODULE.md)       | Setting up the private-repo + submodule pattern end-to-end                                      |
-| [`docs/OVERLEAF.md`](docs/OVERLEAF.md)         | Overleaf upload layouts, the `\usepackage` path gotcha, EN+FR in one project                    |
-| [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) | LaTeX style conventions, Python lint rules, PR checklist                                        |
+| [`docs/OVERLEAF.md`](docs/OVERLEAF.md)         | Overleaf upload layouts, the `\documentclass` path gotcha, EN+FR in one project                 |
+| [`docs/CONTRIBUTING.md`](docs/CONTRIBUTING.md) | LaTeX class conventions, Python lint rules, PR checklist                                        |
 | [`CHANGELOG.md`](CHANGELOG.md)                 | Release notes                                                                                   |
 
 ---

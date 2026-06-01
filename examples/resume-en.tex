@@ -4,19 +4,15 @@
 % License: MIT
 %-------------------------
 
-\documentclass[letterpaper,11pt]{article}
-\usepackage{../style/resume}
+\documentclass[en,11pt]{resume}
 \begin{document}
 
 %---------------HEADING---------------
-\begin{center}
-  \textbf{\Huge Jane Doe} \\ \vspace{1pt}
-  \href{mailto:jane.doe@example.com}{\underline{jane.doe@example.com}} $|$
-  \href{https://linkedin.com/in/jane-doe}{\underline{linkedin.com/in/jane-doe}} $|$
-  \href{https://github.com/janedoe}{\underline{github.com/janedoe}} \\
-  \vspace{6pt}
-  \textbf{\small{Software engineer focused on backend systems and developer tooling. Open to new opportunities starting October 2026.}}
-\end{center}
+\resumeHeader{Jane Doe}
+  {jane.doe@example.com}
+  {linkedin.com/in/jane-doe}
+  {github.com/janedoe}
+\resumeTagline{Software engineer focused on backend systems and developer tooling. Open to new opportunities starting October 2026.}
 %-------------------------------------
 
 %--------------EXPERIENCE-------------
@@ -73,16 +69,14 @@
 
 %-----------TECHNICAL SKILLS----------------
 \section{Technical Skills}
- \begin{itemize}[leftmargin=0.15in, label={}]
-    \small{\item{
-    \textbf{Languages \& Certifications:}{English (native), French (B2)} \\
-    \textbf{Programming:}{Python, Go, TypeScript, Rust, Bash} \\
-    \textbf{Frameworks \& Libraries:}{FastAPI, React, Next.js, gRPC, SQLAlchemy} \\
-    \textbf{Software Engineering:}{REST/gRPC APIs, SQL, automated testing, CI/CD, technical writing} \\
-    \textbf{Infrastructure \& DevOps:}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform} \\
-    \textbf{Tools:}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
-    }}
- \end{itemize}
+\begin{skillsTable}
+  \skillRow{Languages \& Certifications}{English (native), French (B2)}
+  \skillRow{Programming}{Python, Go, TypeScript, Rust, Bash}
+  \skillRow{Frameworks \& Libraries}{FastAPI, React, Next.js, gRPC, SQLAlchemy}
+  \skillRow{Software Engineering}{REST/gRPC APIs, SQL, automated testing, CI/CD, technical writing}
+  \skillRow{Infrastructure \& DevOps}{Docker, Kubernetes, Linux, AWS (EC2, S3, RDS), Terraform}
+  \skillRow{Tools}{Git, GitHub, VS Code, Neovim, Grafana, OpenTelemetry}
+\end{skillsTable}
 %-------------------------------------------
 
 %--------------EDUCATION--------------
@@ -90,10 +84,10 @@
   \resumeSubHeadingListStart
   \resumeSubheading
     {\textbf{Example University of Technology}}{Anytown, USA}
-    {MSc Computer Science — Systems track}{Sept. 2020 -- Jun. 2023}
+    {MSc Computer Science --- Systems track}{Sept. 2020 -- Jun. 2023}
   \resumeSubheading
     {\textbf{International Sample College}}{Dublin, Ireland}
-    {Exchange semester — distributed systems, databases}{Feb. 2022 -- May 2022}
+    {Exchange semester --- distributed systems, databases}{Feb. 2022 -- May 2022}
   \resumeSubHeadingListEnd
 %-------------------------------------
 
