@@ -185,6 +185,27 @@ not start with `% AUTO-GENERATED`.
 See [`config.example.tex`](../config.example.tex) for a fully commented
 starter file.
 
+### `private.tex` (local-only personal fields)
+
+For details you want in your **local** PDF but never in version control or on
+a public build — e.g. a phone number — the class loads an optional
+`private.tex` next to each `.tex` source via `\InputIfFileExists{private.tex}{}{}`,
+after declaring empty defaults (`\newcommand{\resumePhone}{}`).
+
+Keep `private.tex` **git-ignored**. A local `make build` picks it up; CI, a
+fresh clone, and the published gh-pages PDF render without it (the empty
+defaults apply). On Overleaf, upload `private.tex` for a private build there.
+
+```latex
+% content/private.tex  (git-ignored)
+\renewcommand{\resumePhone}{+33 6 12 34 56 78}
+```
+
+`\resumePhone` is inserted into the `\resumeHeader` contact row, between the
+email and LinkedIn. To add more fields, declare another empty default in
+`style/resume.cls`, render it where you want, then set it here. See
+[`private.example.tex`](../private.example.tex) for a commented starter.
+
 ### Class macros API
 
 Authored in your `.tex` source. All defined in `style/resume.cls`.
@@ -192,7 +213,7 @@ Authored in your `.tex` source. All defined in `style/resume.cls`.
 | Macro                                                | Purpose                                                                                                                          |
 | ---------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
 | `\documentclass[<opts>]{resume}`                     | Load the class. Options: `fr`/`en`, `compact`/`normal`/`spacious`, `10pt`/`11pt`/`12pt`.                                         |
-| `\resumeHeader{name}{email}{linkedin}{github}`       | Centred header block. `linkedin`/`github` are host+path without scheme (e.g. `linkedin.com/in/jdoe`); macro prepends `https://`. |
+| `\resumeHeader{name}{email}{linkedin}{github}`       | Centred header block. `linkedin`/`github` are host+path without scheme (e.g. `linkedin.com/in/jdoe`); macro prepends `https://`. Also renders `\resumePhone` (between email and LinkedIn) when set via `private.tex`. |
 | `\resumeTagline{text}`                               | Bold-small paragraph under the header. Short pitch / target role / availability.                                                 |
 | `\section{Name}`                                     | Section title with right-aligned horizontal rule.                                                                                |
 | `\resumeSubHeadingListStart` / `…End`                | Wrap a list of `\resumeSubheading` / `\resumeProjectHeading` entries.                                                            |

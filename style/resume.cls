@@ -22,7 +22,7 @@
 %---------------------------------------------------------------
 
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesClass{resume}[2026/06/02 v2.0.2 Resume class]
+\ProvidesClass{resume}[2026/06/05 v2.1.0 Resume class]
 
 %------------ETOOLBOX (needed for toggles/conditionals)-------
 \RequirePackage{etoolbox}
@@ -92,6 +92,17 @@
 % color, density, font, language. Hand-editable; the Python pipeline
 % (scripts/write_config.py) can regenerate it from options.yml.
 \InputIfFileExists{config.tex}{}{}
+
+%------------PRIVATE FIELDS (optional, local-only)-------
+% Personal contact details kept OUT of version control. The class declares
+% empty defaults here, then loads private.tex (next to the compiled .tex, same
+% cwd) if present. Keep private.tex git-ignored: the public build (CI, Overleaf,
+% a fresh clone) renders WITHOUT these fields, while a local build picks them up.
+% To add a field: declare an empty \newcommand{\resumeXxx}{} below, render it
+% where wanted, then set it in private.tex via \renewcommand. See
+% private.example.tex.
+\newcommand{\resumePhone}{}
+\InputIfFileExists{private.tex}{}{}
 
 %------------CORE PACKAGES----------------
 \RequirePackage{latexsym}
@@ -225,12 +236,16 @@
 %------------PUBLIC MACROS (new in v2)----
 
 % \resumeHeader{name}{email}{linkedin-host-and-path}{github-host-and-path}
-% Centred header block: huge name + three underlined hyperlinks separated by |.
+% Centred header block: huge name + underlined hyperlinks separated by |.
 % LinkedIn/GitHub args are the displayable form without scheme (e.g.,
 % "linkedin.com/in/jdoe"); the macro prepends https:// for the URL.
+% If \resumePhone is set (via private.tex), it is inserted between the email
+% and LinkedIn — underlined to match, but not hyperlinked (so a value with
+% spaces stays clean; wrap it in \href{tel:...} yourself for a clickable link).
 \newcommand{\resumeHeader}[4]{%
   \begin{center}
     \textbf{\Huge #1} \\ \vspace{1pt}
+    \ifdefempty{\resumePhone}{}{\underline{\resumePhone} $|$ }%
     \href{mailto:#2}{\underline{#2}} $|$
     \href{https://#3}{\underline{#3}} $|$
     \href{https://#4}{\underline{#4}} \\

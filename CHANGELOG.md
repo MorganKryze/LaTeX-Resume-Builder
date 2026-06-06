@@ -11,6 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 > Changed, Removed, Deprecated). Do not append entries in feature PRs; the diff
 > and the commit history are the source of truth between releases.
 
+## [2.1.0] — 2026-06-05
+
+Minor release. Adds optional **local-only personal fields** so details like a phone number can appear in a locally-built PDF without ever entering version control or a public build.
+
+### Added
+
+- `style/resume.cls`: declares an empty `\resumePhone` default and loads an optional `private.tex` next to each `.tex` source via `\InputIfFileExists{private.tex}{}{}`. `\resumeHeader` renders `\resumePhone` (underlined, between email and LinkedIn) when set, and nothing when empty — so CI, a fresh clone, and the published PDF stay clean while a local build picks it up.
+- `private.example.tex`: commented starter documenting the `private.tex` workflow and how to add further private fields.
+- `docs/USAGE.md` §4: new "`private.tex` (local-only personal fields)" subsection; the `\resumeHeader` row notes the `\resumePhone` slot.
+
 ## [2.0.2] — 2026-06-02
 
 Patch release. Richer, prettier Jane Doe dummies to give first-time users a representative starting point. No code changes.
