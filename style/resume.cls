@@ -245,7 +245,7 @@
 \newcommand{\resumeHeader}[4]{%
   \begin{center}
     \textbf{\Huge #1} \\ \vspace{1pt}
-    \ifdefempty{\resumePhone}{}{\underline{\resumePhone} $|$ }%
+    \ifdefempty{\resumePhone}{}{\textcolor{resumeAccent}{\mbox{\resumePhone}} $|$ }%
     \href{mailto:#2}{\underline{#2}} $|$
     \href{https://#3}{\underline{#3}} $|$
     \href{https://#4}{\underline{#4}} \\
